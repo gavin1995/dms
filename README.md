@@ -20,7 +20,7 @@
 - [x] UI Schema编辑
 - [x] 动态更新表单
 - [x] 表单数据测试
-- [ ] 使用Redis缓存数据（配合使用[dms-api](https://github.com/win-winFE/dms-api)）
+- [x] 使用Redis缓存数据（配合使用[dms-api](https://github.com/win-winFE/dms-api)）
 - [ ] 使用CDN缓存数据
 
 **针对需求方**
