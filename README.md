@@ -8,7 +8,7 @@
 
 **基于Json Schema的json动态数据管理平台**
 
-### Features
+### FEATURE
 
 * 支持所有基本表单类型
 * 支持默认数据、逻辑判断、配置验证等
