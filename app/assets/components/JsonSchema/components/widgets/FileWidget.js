@@ -96,10 +96,6 @@ class FileWidget extends Component {
     const fileValue = await Promise.all(
       await filesInfo.map(async (fileInfo, i) => {
         const form = new FormData();
-        form.set("env", "dms");
-        form.set("uniqueStr", "2018");
-        form.set("project", "dms-core");
-        form.set("type", 2);
         form.append("resource", files[i]);
         const res = await axios({
           method: "POST",
