@@ -8,6 +8,21 @@
 
 **基于Json Schema的json动态数据管理平台**
 
+### Features
+
+* 支持所有基本表单类型
+* 支持默认数据、逻辑判断、配置验证等
+* 支持UI Schema，可以配置出颜色选择器、密码框、日期选择器、进度条等高级控件
+* 模块化（组件化）数据管理
+* 实时表单预览
+* 实时数据预览/审核（配合[dms-api](https://github.com/win-winFE/dms-api)，同时支持服务端代理请求，及浏览器端请求的数据预览与审核）
+* 友好的json编辑器
+* 支持动态增加参数
+* 参数本身可以为DMS生成的配置数据
+* 支持第三方参数接口（key/value格式）
+* 配合[dms-upload](https://github.com/win-winFE/dms-upload)可以快速将通过表单上传的文件传入CDN/云存储
+* 符合实际场景的权限控制：开发只负责schema编写，需求方配置所有数据
+
 ### TODO
 
 **针对开发者**
@@ -21,6 +36,7 @@
 - [x] 动态更新表单
 - [x] 表单数据测试
 - [x] 使用Redis缓存数据（配合使用[dms-api](https://github.com/win-winFE/dms-api)）
+- [x] 统一表单图片上传管理
 - [ ] 使用CDN缓存数据
 
 **针对需求方**
