@@ -20,7 +20,8 @@ export const getParams = (search) => {
 export const getBaseHashUrlPrefix = url => url.match(/(https?|ftp|file):\/\/[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]#/g)[0] || url;
 
 export const formatReviewUrl = associationUrl => {
-  const url = location.href;
+  // eslint-disable-next-line no-use-before-define
+  const url = window.location.href;
   const urlSplit = url.split('?');
   const search = `?${urlSplit[urlSplit.length - 1]}`;
   const params = getParams(search);

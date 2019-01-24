@@ -61,15 +61,107 @@
 
 ## 使用
 
+### 请先确保已经安装好：node.js8+、mysql、redis，并已开启相关服务
+
 ### 安装
+
 ```bash
 > git clone https://github.com/win-winFE/dms.git
-> yarn
+> yarn # 若没有yarn，请使用 npm install
 ```
 
+### 执行初始化sql
+
+* 使用mysql执行 `dms/database/dms.sql`
+* 使用mysql执行初始化用户数据 `dms/database/init.sql`
+
 ### 启动
+
 ```bash
-> yarn dev
+> yarn start # 若没有yarn，请使用 npm run dev
+```
+
+### 停止
+
+```bash
+> yarn stop # npm run stop
+```
+
+### 调试
+
+```bash
+> yarn dev # npm run dev
+```
+
+## 高级
+
+### DMS自定义文件上传（配合使用[dms-upload](https://github.com/win-winFE/dms-upload)）
+
+```bash
+# 默认文件保存在/usr/local/services/cdn/dms目录，通过//127.0.0.1:5000/dms访问
+# 修改保存路径及访问域名，请修改dms-upload/config/config.default.js: cdnDir、cdnPrefix
+# 建议改写dms-upload与自己公司的CDN、云存储等结合，或者独立部署一台服务器，通过lsyncd做实时文件同步
+> git clone https://github.com/win-winFE/dms-upload.git # 获取dms-upload项目
+> yarn # npm install
+> yarn start # npm run start
+```
+
+### 数据访问（配合使用[dms-api](https://github.com/win-winFE/dms-api)）
+
+```bash
+# 获取模块数据
+# 通过dms平台的【运营配置】->【数据管理】->【模块列表】->【编辑模块数据】
+# 获取到请求前缀与唯一标示，拼装在一起即可发起GET请求
+> git clone https://github.com/win-winFE/dms-api.git # 获取dms-api项目
+> yarn # npm install
+> yarn start # npm run start
+```
+
+### 数据审核（配合使用[dms-fetch](https://github.com/win-winFE/dms-fetch)）
+
+```bash
+# 在需要用到DMS的项目里面执行
+> yarn add dms-fetch # npm install --save dms-fetch
+```
+
+**在自己项目中使用`dms-api`获取数据示例**
+
+```js
+import { getDMSDataByServer, getDMSDataByCDN } from 'dms-fetch';
+
+// nodejs/browser：使用Redis存储数据
+const getData = async (req) => {
+  const { search } = req; // 伪代码，获取到url的search部分传给getDMSDataByServer
+  try {
+    // 建议封装统一获取DMS数据方法，只需要替换params后面的参数即可
+    // node.js
+    const res = await getDMSDataByServer('http://127.0.0.1:7102/api/dmsGetData?params=/1/1', search);
+    // browser
+    // const res = await getDMSDataByServer('http://127.0.0.1:7102/api/dmsGetData?params=/1/1');
+    if (res.success) {
+      // 获取到数据
+      return res.data;      
+    }
+    return false;
+  } catch (e) {
+    console.error('获取DMS数据失败');
+  }
+};
+
+// nodejs/browser：使用CDN存储数据，请使用getDMSDataByCDN
+// 需自己将数据生成成json传至CDN
+
+```
+
+**审核**
+
+在DMS中配置【开发配置】->【模块管理】中配置【关联审核地址】
+
+地址支持参数匹配，如：
+
+```bash
+# 配置模块是使用了city参数，则地址可以配为
+https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址也会不一样
 ```
 
 ### FAQ

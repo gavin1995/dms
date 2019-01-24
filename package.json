@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "egg-bin dev --port=7101",
-    "start": "cross-env ESLINT=none roadhog dev"
+    "build": "roadhog build",
+    "start": "egg-scripts start --daemon --title=dms --env=prod --port=7101",
+    "stop": "egg-scripts stop --title=dms"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -48,7 +50,6 @@
     "mysql2": "^1.6.4",
     "numeral": "^2.0.6",
     "omit.js": "^1.0.0",
-    "parse-json": "^4.0.0",
     "path-to-regexp": "^2.4.0",
     "prop-types": "^15.6.2",
     "qs": "^6.6.0",

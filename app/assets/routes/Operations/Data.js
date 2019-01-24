@@ -19,7 +19,6 @@ import {
 } from 'antd';
 import JsonSchemaForm from '../../components/JsonSchema';
 import AceEditor from 'react-ace';
-import parseJson from 'parse-json';
 import 'brace/mode/json';
 import 'brace/theme/monokai';
 
@@ -63,8 +62,8 @@ export default class Data extends PureComponent {
       paramsStr,
     });
     this.setState({
-      formDataStr: res.data ? toJson(parseJson(res.data)) : undefined,
-      formDataJson: res.data ? parseJson(res.data) : null,
+      formDataStr: res.data ? toJson(JSON.parse(res.data)) : undefined,
+      formDataJson: res.data ? JSON.parse(res.data) : null,
     });
   };
 

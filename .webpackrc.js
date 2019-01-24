@@ -16,8 +16,11 @@ export default {
   html: {
     template: './app/assets/index.ejs',
   },
+  es5ImcompatibleVersions: true,
   disableDynamicImport: true,
-  outputPath: 'app/public',
   // publicPath: 'app/public',
   hash: true,
+  manifest: {
+    fileName: "../../config/manifest.json",
+  },
 };
