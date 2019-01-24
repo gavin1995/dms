@@ -6,7 +6,22 @@
 
 ## DMS
 
-**基于Json Schema的json动态数据管理平台**
+**基于Json Schema/UI Schema的json动态数据管理平台**
+
+### 使用场景
+
+* 所有需要动态配置数据的场景理论上都可以使用
+* 作为配置中心，区分不同环境、不同应用，产出不同配置
+
+### 示例场景
+
+* 页面所有配置相关的数据
+* app启动图
+* 动态配置js、css链接，用于页面动态化更新
+* 动态配置版本号，每次用户进入APP判断是否是最新版，是否需要更新
+* 网页banner模块：频繁更换banner图
+* 推荐展示：配置推荐商品/品类的ID，服务端获取DMS的配置数据（ID），然后获取该ID相关的数据
+* 长期静态数据：介绍、关于、说明、协议等
 
 ### FEATURE
 
@@ -62,7 +77,17 @@
 <details>
   <summary>为什么数据库使用Mysql？而不用MongoDB等Json友好型存储引擎？</summary>
   在生产环境中，所有请求都会走缓存/CDN。
+  
   对于用什么存储原始数据不是很重要，Mysql对于多数开发更加友好易用，且在后台配置数据时不需要过多地考虑性能问题。
+</details>
+
+<p></p>
+
+<details>
+  <summary>Schema与数据的存储为什么不直接用Mysql5.7.8的原生JSON类型？</summary>
+  在生产环境中，使用到Mysql5.7.8+的公司应该是少数，考虑到大多数实际场景，所以使用TEXT类型存储。
+  
+  当然有需要的同学，可以直接将相关数据字段改为JSON。
 </details>
 
 <p></p>
@@ -74,3 +99,9 @@
 - 在你的公司或个人项目中使用`dms`。
 - 通过 [Issue](https://github.com/win-winFE/dms/issues) 报告 bug 或进行咨询。
 - 提交 [Pull Request](https://github.com/win-winFE/dms/pulls) 改进 `dms` 的代码。
+
+### 说明
+
+* 本项目出自[win-winFE团队](https://github.com/win-winFE)，如有任何疑问，请扫下面二维码加入我们的微信群
+
+![](https://github.com/win-winFE/dms/blob/master/qrcode.png)

@@ -19,6 +19,7 @@ import {
 } from 'antd';
 import JsonSchemaForm from '../../components/JsonSchema';
 import AceEditor from 'react-ace';
+import parseJson from 'parse-json';
 import 'brace/mode/json';
 import 'brace/theme/monokai';
 
@@ -45,6 +46,7 @@ export default class Data extends PureComponent {
   }
 
   fetchTempData = async () => {
+
     const params = getParams(this.props.location.search);
     const paramsStr = `/${params.app_id}/${params.module_id}` + Object.keys(params).sort().map(key => {
       if (key === 'app_id' || key === 'module_id') {
@@ -61,8 +63,8 @@ export default class Data extends PureComponent {
       paramsStr,
     });
     this.setState({
-      formDataStr: res.data ? toJson(JSON.parse(res.data)) : undefined,
-      formDataJson: res.data ? JSON.parse(res.data) : null,
+      formDataStr: res.data ? toJson(parseJson(res.data)) : undefined,
+      formDataJson: res.data ? parseJson(res.data) : null,
     });
   };
 
@@ -108,11 +110,8 @@ export default class Data extends PureComponent {
       // 请求失败
       return
     }
-    // await this.fetchTempData();
+    await this.fetchTempData();
     message.success('添加数据成功，审核后同步');
-    setTimeout(() => {
-      location.reload();
-    }, 1000)
   };
 
   render() {

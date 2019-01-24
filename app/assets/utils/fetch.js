@@ -1,10 +1,9 @@
 import axios from 'axios';
-import qs from 'qs';
 import { message } from 'antd';
 
 export default async (method, url, params = {}) => {
   try {
-    const { data } = await axios[method](url, qs.stringify(params));
+    const { data } = await axios[method](url, params);
     if (!data.success) {
       message.error(data.message || '服务器出错，请联系开发人员');
       return false;
