@@ -73,7 +73,8 @@
 ### 执行初始化sql
 
 * 使用mysql执行 `dms/database/dms.sql`
-* 使用mysql执行初始化用户数据 `dms/database/init.sql`
+* 使用mysql执行初始化用户数据 `dms/database/init.sql` (执行后可以使用：root root1234 登录DMS，也可以使用/api/userCreate创建用户)
+* 修改项目中mysql/redis相关配置`dms/config/config.default.js`（mysql默认密码为：root1234）
 
 ### 启动
 
@@ -95,9 +96,24 @@
 
 ## 高级
 
+### 配置应用参数
+
+* 在参数列表新建参数
+* 编辑参数：
+    1. 可以使用返回结果为 `key value 形式的对象数组` 的api生成下拉列表，配置接口地址后，请选择【使用接口地址生成参数】
+    2. 可以使用手动配置 `key value 形式的对象数组` ，点击+号手动添加下拉菜单项，最后选择【提交】
+
+* 参数可以配合审核地址使用（审核地址里面使用大括号{}包装参数将自动解析，动态生成审核地址）
+
+
 ### DMS自定义文件上传（配合使用[dms-upload](https://github.com/win-winFE/dms-upload)）
 
 ```bash
+# 有任何问题可以加最下面的微信群
+# dms-upload带有权限验证（为了安全性）
+# 需要先执行`dms-upload/database/dms-upload.sql`
+# 执行`dms-upload/database/init.sql`后，即可通过root root1234用户授权（也可以使用/api/create创建）
+# 修改项目中mysql/redis相关配置`dms-upload/config/config.default.js`（mysql默认密码为：root1234）
 # 默认文件保存在/usr/local/services/cdn/dms目录，通过//127.0.0.1:5000/dms访问
 # 修改保存路径及访问域名，请修改dms-upload/config/config.default.js: cdnDir、cdnPrefix
 # 建议改写dms-upload与自己公司的CDN、云存储等结合，或者独立部署一台服务器，通过lsyncd做实时文件同步
@@ -109,6 +125,7 @@
 ### 数据访问（配合使用[dms-api](https://github.com/win-winFE/dms-api)）
 
 ```bash
+# 有任何问题可以加最下面的微信群
 # 获取模块数据
 # 通过dms平台的【运营配置】->【数据管理】->【模块列表】->【编辑模块数据】
 # 获取到请求前缀与唯一标示，拼装在一起即可发起GET请求
@@ -120,6 +137,7 @@
 ### 数据审核（配合使用[dms-fetch](https://github.com/win-winFE/dms-fetch)）
 
 ```bash
+# 有任何问题可以加最下面的微信群
 # 在需要用到DMS的项目里面执行
 > yarn add dms-fetch # npm install --save dms-fetch
 ```
