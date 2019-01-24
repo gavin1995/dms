@@ -8,6 +8,8 @@
 
 **基于Json Schema/UI Schema的json动态数据管理平台**
 
+**在线demo正在制作中，有兴趣的可以先star一下哦，很快就会有demo了**
+
 ### 使用场景
 
 * 所有需要动态配置数据的场景理论上都可以使用
@@ -53,6 +55,7 @@
 - [x] 使用Redis缓存数据（配合使用[dms-api](https://github.com/win-winFE/dms-api)）
 - [x] 统一表单图片上传管理
 - [ ] 使用CDN缓存数据
+- [ ] 在线demo
 
 **针对需求方**
 
