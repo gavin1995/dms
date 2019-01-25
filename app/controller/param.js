@@ -139,7 +139,7 @@ class ParamController extends Controller {
     });
     const res = await Promise.all(await paramListRes.map(async param => {
       let value = param.value;
-      if (!param.associate_url_stop) {
+      if (!param.associate_url_stop && param.associate_url) {
         const apiData = await ctx.curl(param.associate_url);
         const jsonData = JSON.parse(apiData.data.toString());
         value = JSON.stringify(jsonData.data);

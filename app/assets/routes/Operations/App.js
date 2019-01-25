@@ -218,7 +218,7 @@ export default class App extends PureComponent {
                     :
                     (
                       params.map(item => {
-                        if (item.value === 'null') {
+                        if (item.value === 'null' || !item.value) {
                           return null;
                         }
                         return (
