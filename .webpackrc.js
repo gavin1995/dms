@@ -18,7 +18,7 @@ export default {
   },
   es5ImcompatibleVersions: true,
   disableDynamicImport: true,
-  // publicPath: 'app/public',
+  publicPath: 'app/public',
   hash: true,
   manifest: {
     fileName: "../../config/manifest.json",
