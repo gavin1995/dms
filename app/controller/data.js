@@ -2,8 +2,10 @@
 
 const Controller = require('egg').Controller;
 const _ = require('lodash');
+const fetch = require('node-fetch');
 
 const response = require('../util/response');
+const constants = require('../util/constants');
 
 class DataController extends Controller {
   async editTempData() {
@@ -13,6 +15,8 @@ class DataController extends Controller {
     const paramsData = `y${params}`;
     // 删除前面的临时数据记录
     await ctx.model.Data.deleteDataByParams(paramsData, userId);
+    // 将最新数据保存到Azure CDN
+    const cdnFile = await this.saveAzureCdn(paramsData, JSON.stringify(data));
     // 插入新的临时数据
     const createRes = await ctx.model.Data.create({
       module_id,
@@ -22,11 +26,11 @@ class DataController extends Controller {
       updater_id: userId,
     });
 
-    if (!createRes) {
+    if (!createRes || !cdnFile) {
       ctx.body = response.simpleError('保存数据失败，请重试');
       return;
     }
-    ctx.body = response.success();
+    ctx.body = response.success(cdnFile);
   }
 
   // 审核通过->真实数据
@@ -45,6 +49,8 @@ class DataController extends Controller {
     const paramsData = `n${params.substring(1)}`;
     // 删除前面的真实数据记录
     await ctx.model.Data.deleteDataByParams(paramsData, userId);
+    // 将最新数据保存到Azure CDN
+    const cdnFile = await this.saveAzureCdn(paramsData, JSON.stringify(data));
     // 插入新的真实数据
     const createRes = await ctx.model.Data.create({
       data,
@@ -54,11 +60,11 @@ class DataController extends Controller {
       updater_id: userId,
     });
 
-    if (!createRes) {
+    if (!createRes || !cdnFile) {
       ctx.body = response.simpleError('保存数据失败，请重试');
       return;
     }
-    ctx.body = response.success();
+    ctx.body = response.success(cdnFile);
   }
 
   async getTempData() {
@@ -95,6 +101,26 @@ class DataController extends Controller {
       ctx.model.Application.findIdByAppIdAndOwnerId(userId, app_id),
     ]);
     return res.some(item => item);
+  }
+
+  async saveAzureCdn(params, data) {
+    try {
+      const res = await fetch(`${constants.dmsUploadAPI}/saveData2CDN`, {
+        method: 'POST',
+        body: JSON.stringify({
+          params,
+          data
+        }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      const resJson = await res.json();
+      console.log(resJson);
+      return resJson.data;
+    } catch (e) {
+      return false;
+    }
   }
 }
 

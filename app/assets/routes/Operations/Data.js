@@ -15,7 +15,8 @@ import {
   Tooltip,
   Modal,
   Table,
-  message
+  message,
+  notification
 } from 'antd';
 import JsonSchemaForm from '../../components/JsonSchema';
 import AceEditor from 'react-ace';
@@ -110,7 +111,7 @@ export default class Data extends PureComponent {
       return
     }
     await this.fetchTempData();
-    message.success('添加数据成功，审核后同步');
+    message.success(`添加数据成功，审核后同步, cdn地址: ${res}`);
   };
 
   render() {

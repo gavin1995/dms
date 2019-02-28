@@ -1,6 +1,6 @@
 {
   "name": "dms",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A json data manage system for json-schema.",
   "private": true,
   "scripts": {
@@ -48,6 +48,7 @@
     "lodash.topath": "^4.5.2",
     "moment": "^2.22.2",
     "mysql2": "^1.6.4",
+    "node-fetch": "^2.3.0",
     "numeral": "^2.0.6",
     "omit.js": "^1.0.0",
     "path-to-regexp": "^2.4.0",
