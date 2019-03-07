@@ -250,7 +250,7 @@ export function deepEquals(a, b, ca = [], cb = []) {
 export const fromJson = json => JSON.parse(json);
 export const toJson = val => JSON.stringify(val, null, 2);
 
-export const jsonToQueryString = json => Object.keys(json).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(json[key])}`).join('&');;
+export const jsonToQueryString = json => Object.keys(json).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(json[key])}`).join('&');
 
 // export const transformErrors = errors => {
 //   return errors.map(error => {

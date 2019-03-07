@@ -105,9 +105,20 @@ export default class App extends PureComponent {
     });
     await this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (err) return;
-      const paramQueryString = jsonToQueryString(values);
+      const keys = Object.keys(values);
+      const selectedValues = {};
+      keys.forEach(key => {
+        if (values[key] !== void 0) {
+          selectedValues[key] = values[key]
+        }
+      });
+      const paramQueryString = jsonToQueryString(selectedValues);
       const { dispatch } = this.props;
-      dispatch(routerRedux.push(`/operations/module?app_id=${appId}&${paramQueryString}`));
+      if (paramQueryString) {
+        dispatch(routerRedux.push(`/operations/module?app_id=${appId}&${paramQueryString}`));
+        return;
+      }
+      dispatch(routerRedux.push(`/operations/module?app_id=${appId}`));
     });
   };
 
