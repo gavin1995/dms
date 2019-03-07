@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ImageZoom from "react-medium-image-zoom";
-import axios from "axios";
 
+import ca from '../../../../utils/ca';
 import { shouldRender, setState, sign } from "../../utils";
 import constants from "../../constants";
 
@@ -97,29 +97,31 @@ class FileWidget extends Component {
       await filesInfo.map(async (fileInfo, i) => {
         const form = new FormData();
         form.append("resource", files[i]);
-        const res = await axios({
+        const res = await ca({
           method: "POST",
           url: `${constants.uploadBaseUrl}/putFileByPath`,
           headers: {
-            token: auth.data,
+            token: auth,
             "Content-Type": "multipart/form-data",
           },
           data: form,
         });
-        return res.data.data;
+        return res;
       })
     );
     const state = {
       values: fileValue,
       filesInfo,
     };
-    setState(this, state, () => {
-      if (multiple) {
-        onChange(state.values);
-      } else {
-        onChange(state.values[0]);
-      }
-    });
+    await setTimeout(() => {
+      setState(this, state, () => {
+        if (multiple) {
+          onChange(state.values);
+        } else {
+          onChange(state.values[0]);
+        }
+      });
+    }, 3000);
   };
 
   render() {

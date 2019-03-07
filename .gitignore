@@ -7,3 +7,4 @@ yarn-*.log
 CODE_OF_CONDUCT.md
 opt/
 run/
+dist/

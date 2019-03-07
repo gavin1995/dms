@@ -142,7 +142,11 @@ class ParamController extends Controller {
       if (!param.associate_url_stop && param.associate_url) {
         const apiData = await ctx.curl(param.associate_url);
         const jsonData = JSON.parse(apiData.data.toString());
-        value = JSON.stringify(jsonData.data);
+        if (jsonData.data) {
+          value = JSON.stringify(jsonData.data);
+        } else {
+          value = JSON.stringify(jsonData);
+        }
       }
       return {
         ...param,
