@@ -6,8 +6,6 @@ import {
   Row,
   Col,
   Input,
-  DatePicker,
-  Select,
   Button,
   Card,
   Modal,
@@ -16,13 +14,11 @@ import {
   Transfer
 } from 'antd';
 
-import fetch from '../../utils/fetch';
+import ca from '../../utils/ca';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import styles from './App.less';
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
 const { TextArea, Search } = Input;
 
 @connect()
@@ -52,7 +48,7 @@ export default class App extends PureComponent {
     this.setState({
       appLoading: true,
     });
-    const res = await fetch('get', `/api/appList?page=${page}&name=${name}&page_size=${pageSize}`);
+    const res = await ca.get(`/api/appList?page=${page}&name=${name}&page_size=${pageSize}`);
     if (!res) {
       // 请求失败
       return
@@ -65,22 +61,16 @@ export default class App extends PureComponent {
   };
 
   fetchAllUser = async () => {
-    const res = await fetch('get', `/api/userAll`);
-    if (!res) {
-      // 请求失败
-      return
-    }
+    const res = await ca.get('/api/userAll');
+    if (!res) return;
     this.setState({
       users: res,
     });
   };
 
   fetchAllAuthUser = async (app_id) => {
-    const res = await fetch('get', `/api/authList?app_id=${app_id}`);
-    if (!res) {
-      // 请求失败
-      return
-    }
+    const res = await ca.get(`/api/authList?app_id=${app_id}`);
+    if (!res) return;
     const authUsers = res.map(item => item.user_id);
     this.setState({
       authUsers,
@@ -124,11 +114,8 @@ export default class App extends PureComponent {
     });
     await this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (err) return;
-      const res = await fetch('post', '/api/appCreate', values);
-      if (!res) {
-        // 请求失败
-        return
-      }
+      const res = await ca.post('/api/appCreate', values);
+      if (!res) return;
       await this.fetchAppListByFilter();
       message.success('添加成功');
       this.props.form.resetFields();
@@ -177,14 +164,11 @@ export default class App extends PureComponent {
     if (!authUsers.length || !currentSelectAuthAppId) {
       return;
     }
-    const res = await fetch('post', '/api/authEdit', {
+    const res = await ca.post('/api/authEdit', {
       app_id: currentSelectAuthAppId,
       user_ids: authUsers,
     });
-    if (!res) {
-      // 请求失败
-      return
-    }
+    if (!res) return;
     message.success('权限添加成功');
   };
 

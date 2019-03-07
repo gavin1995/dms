@@ -24,22 +24,7 @@ class UserController extends Controller {
       ctx.body = response.simpleError('用户名或密码不正确');
       return false;
     }
-
-    const { dataValues } = data;
-    const expiration = moment(moment().add(30, 'd').format('YYYY-MM-DD 00:00:00')).unix();
-    const token = jwt.sign({
-      username,
-      userId: dataValues.id,
-      sub: dataValues.id,
-      iat: moment().unix(),
-      exp: expiration,
-    }, constants.jwtSecret);
-    ctx.cookies.set('token', token, {
-      httpOnly: true,
-      path: '/',
-      expires: moment.utc(moment().add(30, 'd').format('YYYY-MM-DD 00:00:00')).toDate(),
-    });
-    ctx.body = response.success();
+    return this.jwtAuth(ctx, data.dataValues.id, username);
   }
 
   async create() {
@@ -77,7 +62,7 @@ class UserController extends Controller {
       ctx.body = response.simpleError('注册失败，请重试');
       return;
     }
-    ctx.body = response.success();
+    return this.jwtAuth(ctx, res.dataValues.id, username);
   }
 
   async edit() {
@@ -163,6 +148,23 @@ class UserController extends Controller {
       ctx.model.Application.findIdByAppIdAndOwnerId(userId, app_id),
     ]);
     return res.some(item => item);
+  }
+
+  jwtAuth(ctx, userId, username) {
+    const expiration = moment(moment().add(30, 'd').format('YYYY-MM-DD 00:00:00')).unix();
+    const token = jwt.sign({
+      username,
+      userId: userId,
+      sub: userId,
+      iat: moment().unix(),
+      exp: expiration,
+    }, constants.jwtSecret);
+    ctx.cookies.set('token', token, {
+      httpOnly: true,
+      path: '/',
+      expires: moment.utc(moment().add(30, 'd').format('YYYY-MM-DD 00:00:00')).toDate(),
+    });
+    ctx.body = response.success();
   }
 }
 

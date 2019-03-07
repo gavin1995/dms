@@ -5,30 +5,20 @@ import {
   Row,
   Col,
   Input,
-  DatePicker,
-  Select,
   Button,
   Card,
-  InputNumber,
-  Radio,
-  Icon,
-  Tooltip,
   Modal,
   Table,
   message
 } from 'antd';
-import axios from 'axios';
 
-import fetch from '../../utils/fetch';
+import ca from '../../utils/ca';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { getParams } from '../../utils/url';
 import styles from './Module.less';
 import {routerRedux} from "dva/router";
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
-const { TextArea, Search } = Input;
 
 @connect()
 @Form.create()
@@ -54,11 +44,8 @@ export default class Module extends PureComponent {
     this.setState({
       appId: params.app_id,
     });
-    const res = await fetch('get', `/api/moduleList?app_id=${params.app_id}`);
-    if (!res) {
-      // 请求失败
-      return
-    }
+    const res = await ca.get(`/api/moduleList?app_id=${params.app_id}`);
+    if (!res) return;
     this.setState({
       data: res,
       loading: false,
@@ -83,14 +70,11 @@ export default class Module extends PureComponent {
     });
     await this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (err) return;
-      const res = await fetch('post', '/api/moduleCreate', {
+      const res = await ca.post('/api/moduleCreate', {
         ...values,
         app_id: this.state.appId,
       });
-      if (!res) {
-        // 请求失败
-        return
-      }
+      if (!res) return;
       await this.fetchModuleList();
       message.success('添加成功');
       this.props.form.resetFields();
@@ -109,17 +93,18 @@ export default class Module extends PureComponent {
     if (!this.state[`associationUrl_${module_id}`]) {
       return;
     }
-    const res = await fetch('post', '/api/moduleEditAssociationUrl', {
+    const res = await ca.post('/api/moduleEditAssociationUrl', {
       module_id,
       association_url: this.state[`associationUrl_${module_id}`],
     });
+    if (!res) return;
     message.success('更新成功');
   };
 
   render() {
     const { submitting } = this.props;
     const { getFieldDecorator } = this.props.form;
-    const {  modalVisible, data, loading, associationUrlModalVisibleId } = this.state;
+    const {  data, loading, associationUrlModalVisibleId } = this.state;
 
     const formItemLayout = {
       labelCol: {

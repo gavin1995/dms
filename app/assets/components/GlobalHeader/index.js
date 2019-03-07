@@ -3,7 +3,7 @@ import { Icon, Divider, Tooltip } from 'antd';
 import Debounce from 'lodash-decorators/debounce';
 import {Link, routerRedux} from 'dva/router';
 
-import fetch from '../../utils/fetch';
+import ca from '../../utils/ca';
 import styles from './index.less';
 import { connect } from "dva/index";
 
@@ -26,11 +26,8 @@ export default class GlobalHeader extends PureComponent {
   }
 
   handleLogout = async () => {
-    const res = await fetch('get', `/api/userLogout`);
-    if (!res) {
-      // 请求失败
-      return
-    }
+    const res = await ca.get('/api/userLogout');
+    if (!res) return;
     const { dispatch } = this.props;
     dispatch(routerRedux.push('/user/login'));
   };

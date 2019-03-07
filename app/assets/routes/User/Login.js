@@ -1,29 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { Link } from 'dva/router';
-import { Checkbox, Alert, Icon } from 'antd';
+import {Link, routerRedux} from 'dva/router';
+import { Checkbox, Alert } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
+import ca from "../../utils/ca";
+import { reloadAuthorized } from '../../utils/Authorized';
 
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
+const { UserName, Password, Submit } = Login;
 
-@connect(({ login, loading }) => ({
-  login,
-  submitting: loading.effects['login/login'],
-}))
+@connect()
 export default class LoginPage extends Component {
   state = {
     autoLogin: true,
   };
 
-  handleSubmit = (err, values) => {
+  handleSubmit = async (err, values) => {
     if (!err) {
-      this.props.dispatch({
-        type: 'login/login',
-        data: {
-          ...values,
-        },
+      const res = await ca.post('/api/userLogin', {
+        username: values.username,
+        password: values.password,
       });
+      if (!res) return;
+      reloadAuthorized();
+      this.props.dispatch(routerRedux.push('/'))
     }
   };
 
@@ -38,18 +38,16 @@ export default class LoginPage extends Component {
   };
 
   render() {
-    const { login, submitting } = this.props;
+    const { login } = this.props;
     return (
       <div className={styles.main}>
         <Login
           onTabChange={this.onTabChange}
           onSubmit={this.handleSubmit}
         >
-          {login.status === 'error' &&
-          !login.submitting &&
-          this.renderMessage('账户或密码错误')}
           <UserName name="username" placeholder="账户" />
           <Password name="password" placeholder="密码" />
+
           <div>
             <Checkbox
               checked={this.state.autoLogin}
@@ -59,7 +57,10 @@ export default class LoginPage extends Component {
               自动登录
             </Checkbox>
           </div>
-          <Submit loading={submitting}>登录</Submit>
+          <Link to="/user/register">
+            注册
+          </Link>
+          <Submit>登录</Submit>
         </Login>
       </div>
     );

@@ -1,33 +1,20 @@
 import React, { PureComponent } from 'react';
-import { connect } from 'dva';
 import {
   Form,
   Row,
   Col,
-  Input,
-  DatePicker,
-  Select,
-  Button,
-  Card,
-  InputNumber,
-  Radio,
-  Icon,
-  Tooltip,
-  Modal,
-  Table,
   message,
-  notification
 } from 'antd';
 import JsonSchemaForm from '../../components/JsonSchema';
 import AceEditor from 'react-ace';
 import 'brace/mode/json';
 import 'brace/theme/monokai';
 
-import fetch from '../../utils/fetch';
+import ca from '../../utils/ca';
 import constants from '../../utils/constants';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { getParams } from "../../utils/url";
-import { toJson, fromJson } from "../../utils/utils";
+import { toJson } from "../../utils/utils";
 import './Data.less';
 
 @Form.create()
@@ -54,11 +41,8 @@ export default class Data extends PureComponent {
       }
       return `/${key}/${params[key]}`
     }).join('');
-    const res = await fetch('get', `/api/dataGetTempData?module_id=${params.module_id}&params=${paramsStr}`);
-    if (!res) {
-      // 请求失败
-      return
-    }
+    const res = await ca.get(`/api/dataGetTempData?module_id=${params.module_id}&params=${paramsStr}`);
+    if (!res) return;
     this.setState({
       paramsStr,
     });
@@ -74,11 +58,8 @@ export default class Data extends PureComponent {
       appId: params.app_id,
       moduleId: params.module_id,
     });
-    const res = await fetch('get', `/api/moduleInfo?app_id=${params.app_id}&module_id=${params.module_id}`);
-    if (!res) {
-      // 请求失败
-      return
-    }
+    const res = await ca.get(`/api/moduleInfo?app_id=${params.app_id}&module_id=${params.module_id}`);
+    if (!res) return;
     const { definition, ui_schema } = res;
     if (definition) {
       const json = JSON.parse(definition);
@@ -101,23 +82,21 @@ export default class Data extends PureComponent {
 
   submitTempData = async () => {
     const { formDataJson, paramsStr, moduleId } = this.state;
-    const res = await fetch('post', '/api/dataEditTempData', {
+    const res = await ca.post('/api/dataEditTempData', {
       params: paramsStr,
       module_id: moduleId,
       data: formDataJson
     });
-    if (!res) {
-      // 请求失败
-      return
-    }
+    if (!res) return;
     await this.fetchTempData();
     message.success(`添加数据成功，审核后同步, cdn地址: ${res}`);
   };
 
   render() {
     const { formDefinition, formDataStr, formDataJson, paramsStr, uiSchema } = this.state;
+    // <PageHeaderLayout title={`临时数据配置，请求前缀：${constants.commonApi}，唯一标示：${paramsStr}`}>
     return (
-      <PageHeaderLayout title={`临时数据配置，请求前缀：${constants.commonApi}，唯一标示：${paramsStr}`}>
+      <PageHeaderLayout title="编辑临时数据">
         <Row gutter={24}>
           <Col span={24}>
             {

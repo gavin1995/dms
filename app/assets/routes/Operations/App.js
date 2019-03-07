@@ -6,25 +6,21 @@ import {
   Row,
   Col,
   Input,
-  DatePicker,
   Select,
   Button,
   Card,
   Modal,
   Table,
-  message,
-  Transfer
 } from 'antd';
 
-import fetch from '../../utils/fetch';
+import ca from '../../utils/ca';
 import { jsonToQueryString } from '../../utils/utils';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import styles from './App.less';
 
 const FormItem = Form.Item;
 const { Option } = Select;
-const { RangePicker } = DatePicker;
-const { TextArea, Search } = Input;
+const { Search } = Input;
 
 @connect()
 @Form.create()
@@ -52,11 +48,8 @@ export default class App extends PureComponent {
     this.setState({
       appLoading: true,
     });
-    const res = await fetch('get', `/api/appList?page=${page}&name=${name}&page_size=${pageSize}`);
-    if (!res) {
-      // 请求失败
-      return
-    }
+    const res = await ca.get(`/api/appList?page=${page}&name=${name}&page_size=${pageSize}`);
+    if (!res) return;
     this.setState({
       appCount: res.count,
       appRows: res.rows,
@@ -80,7 +73,7 @@ export default class App extends PureComponent {
   handleModuleRoute = async (app_id) => {
     const { dispatch } = this.props;
     // 参数列表
-    const res = await fetch('get', `/api/paramSelectList?app_id=${app_id}`);
+    const res = await ca.get(`/api/paramSelectList?app_id=${app_id}`);
     if (!res) return;
     if (!res.length) {
       dispatch(routerRedux.push(`/operations/module?app_id=${app_id}`));

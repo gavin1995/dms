@@ -3,9 +3,6 @@ import {
   Form,
   Row,
   Col,
-  Input,
-  DatePicker,
-  Select,
   message
 } from 'antd';
 import JsonSchemaForm from "../../components/JsonSchema";
@@ -13,17 +10,12 @@ import AceEditor from 'react-ace';
 import 'brace/mode/json';
 import 'brace/theme/monokai';
 
-import fetch from '../../utils/fetch';
+import ca from '../../utils/ca';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 // import styles from './Schema.less';
 import { getParams } from "../../utils/url";
-import { toJson, fromJson, checkUISchema } from "../../utils/utils";
+import { toJson, checkUISchema } from "../../utils/utils";
 import './Schema.less';
-
-const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
-const { TextArea, Search } = Input;
 
 @Form.create()
 export default class Schema extends PureComponent {
@@ -33,7 +25,6 @@ export default class Schema extends PureComponent {
     definition: '',
     currentUISchema: '',
   };
-
 
   componentDidMount() {
     this.fetchModuleInfo();
@@ -45,11 +36,8 @@ export default class Schema extends PureComponent {
       appId: params.app_id,
       moduleId: params.module_id,
     });
-    const res = await fetch('get', `/api/moduleInfo?app_id=${params.app_id}&module_id=${params.module_id}`);
-    if (!res) {
-      // 请求失败
-      return
-    }
+    const res = await ca.get(`/api/moduleInfo?app_id=${params.app_id}&module_id=${params.module_id}`);
+    if (!res) return;
     const { definition, ui_schema } = res;
     // 转换为json字符串
     // const jsonStr = JSON.parse(definition);
@@ -105,15 +93,12 @@ export default class Schema extends PureComponent {
     try {
       const { definition, moduleId, currentUISchema } = this.state;
       // json验证
-      const res = await fetch('post', '/api/moduleEditDefinition', {
+      const res = await ca.post('/api/moduleEditDefinition', {
         definition, // str
         module_id: moduleId,
         ui_schema: currentUISchema, // str
       });
-      if (!res) {
-        // 请求失败
-        return
-      }
+      if (!res) return;
       await this.fetchModuleInfo();
       message.success('保存成功');
     } catch (e) {
@@ -138,6 +123,13 @@ export default class Schema extends PureComponent {
               editorProps={{$blockScrolling: true}}
               width={"100%"}
               height={"780px"}
+              setOptions={{
+                enableBasicAutocompletion: false,
+                enableLiveAutocompletion: false,
+                enableSnippets: false,
+                showLineNumbers: true,
+                tabSize: 2,
+              }}
             />
           </Col>
           <Col span={12}>
@@ -152,6 +144,13 @@ export default class Schema extends PureComponent {
               editorProps={{$blockScrolling: true}}
               width={"100%"}
               height={"780px"}
+              setOptions={{
+                enableBasicAutocompletion: false,
+                enableLiveAutocompletion: false,
+                enableSnippets: false,
+                showLineNumbers: true,
+                tabSize: 2,
+              }}
             />
           </Col>
           <Col span={8} offset={8}>

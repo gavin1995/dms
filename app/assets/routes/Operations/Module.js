@@ -9,7 +9,7 @@ import {
   message
 } from 'antd';
 
-import fetch from '../../utils/fetch';
+import ca from '../../utils/ca';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { getParams, formatReviewUrl } from '../../utils/url';
 import styles from './Module.less';
@@ -37,11 +37,8 @@ export default class Module extends PureComponent {
     this.setState({
       appId: params.app_id,
     });
-    const res = await fetch('get', `/api/moduleList?app_id=${params.app_id}`);
-    if (!res) {
-      // 请求失败
-      return
-    }
+    const res = await ca.get(`/api/moduleList?app_id=${params.app_id}`);
+    if (!res) return;
     this.setState({
       data: res,
       loading: false,
@@ -61,12 +58,12 @@ export default class Module extends PureComponent {
       }
       return `/${key}/${params[key]}`
     }).join('');
-    const dataRes = await fetch('get', `/api/dataGetTempData?module_id=${module_id}&params=${paramsStr}`);
-    const res = await fetch('post', `/api/dataReviewTempData`, {
+    const dataRes = await ca.get(`/api/dataGetTempData?module_id=${module_id}&params=${paramsStr}`);
+    const res = await ca.post('/api/dataReviewTempData', {
       data_id: dataRes.id
     });
     if (res) {
-      message.success('审核成功');
+      message.success(`审核成功, cdn地址: ${res}`);
       return;
     }
     message.error('审核失败');
