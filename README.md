@@ -76,7 +76,7 @@
 ### 执行初始化sql
 
 * 使用mysql执行 `dms/database/dms.sql`
-* 使用mysql执行初始化用户数据 `dms/database/init.sql` (执行后可以使用：root root1234 登录DMS，也可以使用/api/userCreate创建用户)
+* 使用mysql执行初始化用户数据 `dms/database/init.sql` (执行后可以使用：root root1234 登录DMS，也可以通过注册页面直接注册)
 * 修改项目中mysql/redis相关配置`dms/config/config.default.js`（mysql默认密码为：root1234）
 
 ### 启动
@@ -94,7 +94,7 @@
 ### 调试
 
 ```bash
-> yarn dev # npm run dev
+> yarn dev # npm run dev 编译后请替换public里相关文件，并修改config/manifest.json
 ```
 
 ## 高级
@@ -112,8 +112,8 @@
 ### DMS自定义文件上传（配合使用[dms-upload](https://github.com/win-winFE/dms-upload)）
 
 ```bash
-# 有任何问题可以加最下面的微信群
-# dms-upload带有权限验证（为了安全性）
+# 有任何问题可以加最下面的QQ群
+# dms-upload带有权限验证（该功能默认关闭，外网使用请打开相关注释）
 # 需要先执行`dms-upload/database/dms-upload.sql`
 # 执行`dms-upload/database/init.sql`后，即可通过root root1234用户授权（也可以使用/api/create创建）
 # 修改项目中mysql/redis相关配置`dms-upload/config/config.default.js`（mysql默认密码为：root1234）
@@ -215,6 +215,6 @@ https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址�
 
 ### 说明
 
-* 本项目出自[win-winFE团队](https://github.com/win-winFE)，如有任何疑问，请扫下面二维码加入我们的微信群
+* 本项目出自[win-winFE团队](https://github.com/win-winFE)，如有任何疑问，请扫下面二维码加入我们的QQ群
 
-<img src="https://github.com/win-winFE/dms/blob/master/qrcode.png" width="240px" height="240px" />
+<img src="https://github.com/win-winFE/dms/blob/master/qrcode.jpeg" width="240px" />

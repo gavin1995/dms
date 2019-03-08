@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ImageZoom from "react-medium-image-zoom";
@@ -31,30 +32,32 @@ function processFiles(files) {
   return Promise.all([].map.call(files, processFile));
 }
 
-function FilesInfo(props) {
-  const { filesInfo, values } = props;
-  const arrayData = values[0] ? values : filesInfo;
-  return (
-    <ul className="file-info">
-      {arrayData.map((value, key) => {
-        return (
-          <li
-            key={key}
-            style={{
-              display: "flex",
-              width: "250px",
-              flexDirection: "column",
-            }}>
+class FilesInfo extends Component {
+  render() {
+    const { filesInfo, values, value } = this.props;
+    const arrayData = values[0] ? values : filesInfo;
+    return (
+      <ul className="file-info">
+        {arrayData.map((val) => {
+          const newVal = value ? value: val;
+          return (
+            <li
+              key={newVal}
+              style={{
+                display: "flex",
+                width: "250px",
+                flexDirection: "column",
+              }}>
             <span>
               <ImageZoom
                 image={{
-                  src: value || "",
+                  src: newVal || "",
                   alt: "",
                   className: "file-image",
                   style: { width: "200px", margin: "5px" },
                 }}
                 zoomImage={{
-                  src: value || "",
+                  src: newVal || "",
                   alt: "",
                 }}
                 defaultStyles={{
@@ -64,11 +67,12 @@ function FilesInfo(props) {
                 }}
               />
             </span>
-          </li>
-        );
-      })}
-    </ul>
-  );
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
 }
 
 class FileWidget extends Component {
@@ -82,10 +86,6 @@ class FileWidget extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     return shouldRender(this, nextProps, nextState);
-  }
-
-  componentDidMount() {
-    this.forceUpdate();
   }
 
   onChange = async event => {
@@ -113,19 +113,17 @@ class FileWidget extends Component {
       values: fileValue,
       filesInfo,
     };
-    await setTimeout(() => {
-      setState(this, state, () => {
-        if (multiple) {
-          onChange(state.values);
-        } else {
-          onChange(state.values[0]);
-        }
-      });
-    }, 3000);
+    setState(this, state, () => {
+      if (multiple) {
+        onChange(state.values);
+      } else {
+        onChange(state.values[0]);
+      }
+    });
   };
 
   render() {
-    const { multiple, id, readonly, disabled, autofocus } = this.props;
+    const { multiple, id, readonly, disabled, autofocus, value } = this.props;
     const { filesInfo, values } = this.state;
     return (
       <div>
@@ -141,7 +139,7 @@ class FileWidget extends Component {
             multiple={multiple}
           />
         </p>
-        <FilesInfo filesInfo={filesInfo} values={values} />
+        <FilesInfo filesInfo={filesInfo} values={values} value={value} />
       </div>
     );
   }
