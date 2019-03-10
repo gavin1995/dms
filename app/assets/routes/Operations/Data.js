@@ -14,7 +14,7 @@ import ca from '../../utils/ca';
 import constants from '../../utils/constants';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { getParams } from "../../utils/url";
-import { toJson } from "../../utils/utils";
+import { toJson, getParamsString } from "../../utils/utils";
 import './Data.less';
 
 @Form.create()
@@ -33,14 +33,8 @@ export default class Data extends PureComponent {
   }
 
   fetchTempData = async () => {
-
     const params = getParams(this.props.location.search);
-    const paramsStr = `/${params.app_id}/${params.module_id}` + Object.keys(params).sort().map(key => {
-      if (key === 'app_id' || key === 'module_id') {
-        return '';
-      }
-      return `/${key}/${params[key]}`
-    }).join('');
+    const paramsStr = getParamsString(params);
     const res = await ca.get(`/api/dataGetTempData?module_id=${params.module_id}&params=${paramsStr}`);
     if (!res) return;
     this.setState({

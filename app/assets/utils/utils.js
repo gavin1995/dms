@@ -298,3 +298,13 @@ export const checkUISchema = json => {
   }
   return true;
 };
+
+export const getParamsString = (params) => {
+  return `/${params.app_id}/${params.module_id || 'dms_module_id'}` + Object.keys(params).sort().map(key => {
+    if (key === 'app_id' || key === 'module_id') {
+      return '';
+    }
+    return `/${key}/${params[key]}`
+  }).join('');
+};
+

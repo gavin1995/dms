@@ -146,6 +146,71 @@ class ModuleController extends Controller {
     ctx.body = response.success(moduleListRes);
   }
 
+  async statusList() {
+    const { ctx } = this;
+    const { app_id, params } = ctx.queries;
+
+    // 查询是否有该应用的权限
+    const authRes = await this.checkAuth(app_id);
+    if (!authRes) {
+      ctx.body = response.simpleError('抱歉，您没有当前应用权限');
+      return;
+    }
+
+    // 当前模块审核状态
+    const moduleListRes = await ctx.model.Module.listByAppId(app_id);
+    const moduleReviewStatus = {}; // 审核状态: 0未配置数据，1需要审核，2已审核
+    await Promise.all(
+      await moduleListRes.map(async module => {
+        const paramsStr = params[0].replace(/dms_module_id/, module.id);
+        const [tempDataRes, dataRes] = await Promise.all([
+          ctx.model.Data.findOneByParams(`y${paramsStr}`),
+          ctx.model.Data.findOneByParams(`n${paramsStr}`)
+        ]);
+
+        moduleReviewStatus[module.id] = 1; // 默认需要审核
+        if (!tempDataRes) {
+          moduleReviewStatus[module.id] = 0; // 未配置数据
+          return;
+        }
+        if (!dataRes) {
+          moduleReviewStatus[module.id] = 1; // 需要审核
+          return;
+        }
+        // 临时、正式数据都存在，比较更新时间
+        if (dataRes.dataValues.update_time > tempDataRes.dataValues.update_time) {
+          moduleReviewStatus[module.id] = 2; // 已审核
+          return;
+        }
+        return true;
+      })
+    );
+
+    // 获取最后更新人姓名
+    let userIds = [];
+    moduleListRes.forEach(moduleInfo => {
+      userIds.push(moduleInfo.creator_id, moduleInfo.updater_id);
+    });
+    userIds = _.compact(userIds);
+    userIds = _.uniq(userIds);
+    const usersInfo = await ctx.model.User.findUsersByIds(userIds);
+    if (!usersInfo || !usersInfo.length === 0) {
+      ctx.body = response.emptySuccess();
+      return;
+    }
+    const users = [];
+    usersInfo.forEach(userInfo => {
+      users[userInfo.id] = userInfo.real_name;
+    });
+    moduleListRes.forEach(module => {
+      module.key = `module-${module.id}`;
+      module.review_status = moduleReviewStatus[module.id];
+      module.creator = users[module.creator_id];
+      module.updater = users[module.updater_id];
+    });
+    ctx.body = response.success(moduleListRes);
+  }
+
   async info() {
     const { ctx } = this;
     const { app_id, module_id } = ctx.queries;

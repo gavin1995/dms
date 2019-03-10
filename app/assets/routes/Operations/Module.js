@@ -12,8 +12,11 @@ import {
 import ca from '../../utils/ca';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { getParams, formatReviewUrl } from '../../utils/url';
+import { getParamsString } from '../../utils/utils';
 import styles from './Module.less';
 import {routerRedux} from "dva/router";
+
+const reviewStatus = ['未配置', '请审核', '已审核'];
 
 @connect()
 export default class Module extends PureComponent {
@@ -34,10 +37,12 @@ export default class Module extends PureComponent {
       loading: true,
     });
     const params = getParams(this.props.location.search);
+    const paramsStr = getParamsString(params);
     this.setState({
+      paramsStr,
       appId: params.app_id,
     });
-    const res = await ca.get(`/api/moduleList?app_id=${params.app_id}`);
+    const res = await ca.get(`/api/moduleStatusList?app_id=${params.app_id}&params=${paramsStr}`);
     if (!res) return;
     this.setState({
       data: res,
@@ -64,6 +69,7 @@ export default class Module extends PureComponent {
     });
     if (res) {
       message.success(`审核成功, cdn地址: ${res}`);
+      this.fetchModuleList();
       return;
     }
     message.error('审核失败');
@@ -97,18 +103,29 @@ export default class Module extends PureComponent {
         dataIndex: 'updater',
         key: 'module_updater',
       }, {
+        title: '审核状态',
+        key: 'module_review_status',
+        render: (text, record) => (
+          <span>{reviewStatus[record.review_status]}</span>
+        ),
+      }, {
         title: '操作',
         key: 'module_operating',
         render: (text, record) => (
           <span className={styles.tableOperatingButton}>
             <Button type="primary" ghost onClick={() => this.handleEditDataRoute(record.id)}>编辑模块数据</Button>
             {
-              !record.association_url ?
+              !record.association_url || record.review_status !== 1  ?
                 null
                 :
                 <Button type="primary" ghost onClick={() => this.goReview(record.association_url)}>去审核</Button>
             }
-            <Button type="primary" ghost onClick={() => this.handleReview(record.id)}>审核</Button>
+            {
+              record.review_status !== 1 ?
+                null
+                :
+                <Button type="primary" ghost onClick={() => this.handleReview(record.id)}>审核</Button>
+            }
           </span>
         ),
       },

@@ -33,6 +33,7 @@ module.exports = app => {
   router.post('/api/moduleEditAssociationUrl', controller.module.editAssociationUrl);
   router.post('/api/moduleDelete', controller.module.delete);
   router.get('/api/moduleList', controller.module.list);
+  router.get('/api/moduleStatusList', controller.module.statusList);
   router.get('/api/moduleInfo', controller.module.info);
 
   // 权限
