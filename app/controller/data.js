@@ -50,7 +50,7 @@ class DataController extends Controller {
     // 删除前面的真实数据记录
     await ctx.model.Data.deleteDataByParams(paramsData, userId);
     // 将最新数据保存到Azure CDN
-    const cdnFile = await this.saveAzureCdn(paramsData, JSON.stringify(data));
+    const cdnFile = await this.saveAzureCdn(paramsData, data);
     // 插入新的真实数据
     const createRes = await ctx.model.Data.create({
       data,

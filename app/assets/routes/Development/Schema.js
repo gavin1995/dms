@@ -17,6 +17,8 @@ import { getParams } from "../../utils/url";
 import { toJson, checkUISchema } from "../../utils/utils";
 import './Schema.less';
 
+let operationsNumber = 0;
+
 @Form.create()
 export default class Schema extends PureComponent {
   state = {
@@ -47,6 +49,11 @@ export default class Schema extends PureComponent {
   };
 
   onSchemaChange = (val) => {
+    const { definition, currentUISchema } = this.state;
+    console.log('当前Schema: ');
+    console.log(definition);
+    console.log(currentUISchema);
+    this.autoSave();
     try {
       const json = JSON.parse(val);
       // JsonSchemaForm 需要object，AceEditor需要json字符串
@@ -60,6 +67,21 @@ export default class Schema extends PureComponent {
       })
     }
   };
+
+  autoSave = () => {
+    // 每15次操作，自动保存
+    operationsNumber += 1;
+    if (operationsNumber % 15 === 0) {
+      const { definition, moduleId, currentUISchema } = this.state;
+      // json验证
+      ca.post('/api/moduleEditDefinition', {
+        definition, // str
+        module_id: moduleId,
+        ui_schema: currentUISchema, // str
+      });
+    }
+  };
+
 
   onUISchemaChange = (val) => {
     try {

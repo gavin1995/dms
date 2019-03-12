@@ -1,105 +1,246 @@
 ![](https://github.com/win-winFE/dms/blob/master/app/assets/assets/logo.png)
 
+![](https://github.com/win-winFE/dms/blob/master/app/public/assets/images/use.gif)
+
 
 [![issue](https://img.shields.io/github/issues/win-winFE/dms.svg)](https://github.com/win-winFE/dms)
 [![license](https://img.shields.io/github/license/win-winFE/dms.svg)](https://github.com/win-winFE/dms)
 
-## DMS
+## 动态数据管理神器-DMS
 
-**基于Json Schema/UI Schema的json动态数据管理平台**
+### 介绍
 
-**在线demo正在制作中，有兴趣的可以先star一下哦，很快就会有demo了**
+#### 什么是DMS？
 
-### 使用场景
+基于Json Schema/UI Schema`模块化`的Json动态数据管理平台。
 
-* 所有需要动态配置数据的场景理论上都可以使用
-* 作为配置中心，区分不同环境、不同应用，产出不同配置
+#### 什么是Json Schema/UI Schema？
 
-### 示例场景
+* 用于动态生成表单的Schema，参考 [Json Schema使用案例](https://mozilla-services.github.io/react-jsonschema-form/)
+* [官方文档](https://json-schema.org/understanding-json-schema/index.html)
 
-* 页面所有配置相关的数据
-* app启动图
-* 动态配置js、css链接，用于页面动态化更新
-* 动态配置版本号，每次用户进入APP判断是否是最新版，是否需要更新
-* 网页banner模块：频繁更换banner图
-* 推荐展示：配置推荐商品/品类的ID，服务端获取DMS的配置数据（ID），然后获取该ID相关的数据
-* 长期静态数据：介绍、关于、说明、协议等
+#### 使用场景有哪些？
 
-### FEATURE
+无论前端、后端、移动端、运维，理论上所有需要动态配置数据的场景都可以使用。
+针对前端、移动端：可以配置页面每个模块展示型数据，也可以配置各种版本号用于动态更新，各种功能开关、页面主题等。
+针对后端：可以配置业务相关的ID，配置类目，城市列表，热门等。
+针对运维：可以作为区分环境的配置中心等。
 
-* 支持所有基本表单类型
-* 支持默认数据、逻辑判断、配置验证等
-* 支持UI Schema，可以配置出颜色选择器、密码框、日期选择器、进度条等高级控件
-* 模块化（组件化）数据管理
-* 实时表单预览
-* 实时数据预览/审核（配合[dms-api](https://github.com/win-winFE/dms-api)，同时支持服务端代理请求，及浏览器端请求的数据预览与审核）
-* 友好的json编辑器
-* 支持动态增加参数
-* 参数本身可以为DMS生成的配置数据
-* 支持第三方参数接口（key/value格式）
+当然使用场景远不止这些......
+
+#### 可以运用到生产环境吗？
+
+当然可以，DMS存储的数据读写是完全分开的，目前支持通过Redis、CDN(推荐)两种获取数据方式。即使DMS自身服务器挂掉，也不会影响数据的读取。强烈推荐使用CDN的方式，这样稳定性和使用的CDN是一样的。
+
+#### DMS应用、模块、参数介绍
+
+* 应用：包含一个或多个模块，包含一个或多个参数
+* 模块：配置数据的最小单位
+* 参数：使模块根据不同参数配置不同数据（如：每个城市展示的频道页不一样）
+
+![](https://github.com/win-winFE/dms/blob/master/app/public/assets/images/tb.png)
+
+#### DMS特性
+
+* 实时表单预览；
+* 模块化（组件化）数据管理；
+* 支持表单数据逻辑判断、数据验证；
+* Schema数据自动保存，防止误操作及未知异常；
+* 支持动态增加参数，参数本身也可以为DMS生成的配置数据；
 * 配合[dms-upload](https://github.com/win-winFE/dms-upload)可以快速将通过表单上传的文件传入CDN/云存储
-* 符合实际场景的权限控制：开发只负责schema编写，需求方配置所有数据
+* 符合实际场景的权限控制：开发只负责schema编写，需求方配置所有数据；
+* 支持Schema生成所有基本表单类型及高级控件，如：日期选择器、进度条、密码框、颜色选择器等；
+* 实时数据预览/审核（配合[dms-fetch](https://github.com/win-winFE/dms-fetch)，同时支持服务端代理请求，及浏览器端请求的数据预览与审核）
 
-### TODO
+#### TODO
 
-**针对开发者**
-
-- [x] 应用管理
-- [x] 模块管理
-- [x] 应用参数管理
-- [x] 权限管理
-- [x] Json Schema编辑
-- [x] UI Schema编辑
-- [x] 动态更新表单
-- [x] 表单数据测试
-- [x] 使用Redis缓存数据（配合使用[dms-api](https://github.com/win-winFE/dms-api)）
+- [ ] 在线Demo
 - [x] 统一表单图片上传管理
+- [x] 应用、模块、参数、权限管理
+- [x] 使用Redis缓存数据（需配合使用：[dms-api](https://github.com/win-winFE/dms-api)）
+- [x] Json Schema/UI Schema在线编辑及生成表单预览
+- [x] 使用表单编辑动态数据及实时数据审核（配合使用[dms-fetch](https://github.com/win-winFE/dms-fetch)）
 - [x] 使用CDN缓存数据，目前已支持Azure CDN（配合使用[dms-upload](https://github.com/win-winFE/dms-upload)）
-- [ ] 在线demo
 
-**针对需求方**
+### 快速开始
 
-- [x] 使用表单编辑动态数据
-- [x] 数据审核（配合使用[dms-fetch](https://github.com/win-winFE/dms-fetch)）
+**请先确保已经安装好：nodejs8+、mysql、redis，并已开启相关服务**
 
-## 使用
-
-### 请先确保已经安装好：node.js8+、mysql、redis，并已开启相关服务
-
-### 安装
+**安装DMS**
 
 ```bash
 > git clone https://github.com/win-winFE/dms.git
 > yarn # 若没有yarn，请使用 npm install
 ```
 
-### 执行初始化sql
-
-* 使用mysql执行 `dms/database/dms.sql`
-* 使用mysql执行初始化用户数据 `dms/database/init.sql` (执行后可以使用：root root1234 登录DMS，也可以通过注册页面直接注册)
-* 修改项目中mysql/redis相关配置`dms/config/config.default.js`（mysql默认密码为：root1234）
-
-### 启动
+**创建日志目录**
 
 ```bash
-> yarn start # 若没有yarn，请使用 npm run dev
+> mkdir /opt/logs/nodejs -p
 ```
 
-### 停止
+**执行初始化sql**
+
+* 使用mysql执行 dms/database/dms.sql
+* 修改项目中mysql/redis相关配置dms/config/config.default.js（mysql默认密码为：root1234）
+
+**启动/停止/调试**
+
+启动端口默认为：7101，需要修改请修改dms/package.json文件start部分的7101
 
 ```bash
-> yarn stop # npm run stop
+> yarn start # 启动，若没有yarn，请使用 npm run start
+> yarn stop # 停止， npm run stop
+> yarn dev # 调试，npm run dev
 ```
 
-### 调试
+**注册**
+
+进入：http://localhost:7101，将自动跳转到登录页，选择【注册】，按要求填写相关数据，注册成功将自动跳转到【应用管理】页面
+
+**新建示例应用**
+
+点击【新建应用】，新建如下应用
+
+![](https://github.com/win-winFE/dms/blob/master/app/public/assets/images/create-app-modal.png)
+
+**新建示例模块**
+
+点击“淘宝首页”的【模块列表】，点击【新建模块】
+
+![](https://github.com/win-winFE/dms/blob/master/app/public/assets/images/create-module-modal.png)
+
+**编写该模块Schema**
+
+点击“首页banner”的【编辑Schema定义】，复制如下Schema到【Schema定义】中并【保存Schema】
+
+```json
+{
+  "title": "示例",
+  "description": "视频/图片展示配置示例",
+  "type": "array",
+  "minItems": 3,
+  "items": {
+    "type": "object",
+    "properties": {
+      "url": {
+        "title": "跳转链接",
+        "type": "string"
+      },
+      "imgs": {
+        "title": "轮播图片",
+        "type": "string",
+        "format": "file"
+      }
+    } 
+  }
+}
+```
+
+**添加一个参数**
+
+进入【参数列表】，添加如下参数
+
+![](https://github.com/win-winFE/dms/blob/master/app/public/assets/images/create-params.png)
+
+【编辑参数】，【提交】如下参数
+
+![](https://github.com/win-winFE/dms/blob/master/app/public/assets/images/edit-params.png)
+
+**编辑数据**
+
+点击左侧菜单，进入【数据管理】，进入“淘宝首页”应用的【模块列表】，选择城市后点击【进入】，再选择“首页banner”的【编辑模块数据】，此时还不能上传图片、保存数据，需要启用[dms-upload](https://github.com/win-winFE/dms-upload)
+
+**启动dms-upload**
 
 ```bash
-> yarn dev # npm run dev 编译后请替换public里相关文件，并修改config/manifest.json
+> git clone https://github.com/win-winFE/dms-upload.git
+> yarn # npm install
 ```
 
-## 高级
+**执行初始化sql**
 
-### 配置应用参数
+* 使用mysql执行 dms-upload/database/dms-upload.sql
+* 使用mysql执行 dms-upload/database/init.sql（用于上传时的权限验证，默认：root root1234）
+* 修改项目中mysql/redis相关配置dms/config/config.default.js（mysql默认密码为：root1234）
+
+**配置dms-upload**
+
+* 启动端口（默认7100）：dms-upload/package.json start部分，若修改端口。请修改 dms/app/util/constants.js dmsUploadAPI 中的请求地址前缀
+* 数据库配置：dms-upload/config/config.defult.js
+* CDN文件保存目录（默认/usr/local/services/cdn/dms）：dms-upload/config/config.defult.js cdnDir
+* CDN文件访问地址前缀（默认//127.0.0.1:5000/dms）：dms-upload/config/config.defult.js cdnPrefix 
+
+**新建CDN文件（图片、json数据）保存目录**
+
+```bash
+> mkdir /usr/local/services/cdn/dms/data -p # 若未使用默认cdnDir，请修改data前面部分
+> mkdir /usr/local/services/cdn/dms/res -p # 若未使用默认cdnDir，请修改res前面部分
+```
+
+**启动dms-upload**
+
+```bash
+> yarn start # npm run start
+```
+
+**本地调试上传图片回显**
+
+```bash
+> cd /usr/local/services/cdn
+> python -m SimpleHTTPServer 5000 # python3 请使用： python3 -m http.server 5000
+```
+
+**继续回到DMS平台编辑数据**
+
+提交下列数据
+
+![](https://github.com/win-winFE/dms/blob/master/app/public/assets/images/edit-data.png)
+
+#### 直接访问数据（用于非js使用场景）
+
+**临时数据：提交后复制成功Toast中的链接，可以直接访问临时数据数据**
+
+![](https://github.com/win-winFE/dms/blob/master/app/public/assets/images/toast.png)
+
+**正式数据：将临时数据审核为正式数据，也可以通过Toast中的链接直接访问正式数据**
+
+![](https://github.com/win-winFE/dms/blob/master/app/public/assets/images/module-list.png)
+
+#### 使用dms-fetch访问数据（用于js使用场景）
+
+1.项目中安装dms-fetch（不建议，强依赖axios，说明见QA）
+
+```bash
+> yarn add dms-fetch # npm install dms-fetch --save
+```
+
+2.带参数使用示例（伪代码）
+
+```js
+import { getDMSDataByCDN } from 'dms-fetch';
+import ...
+
+// 复制编辑数据页面的唯一标示，下面是React应用配合使用DMS参数的示例
+export default class extends React.Component {
+    ...
+    fetchData = async () => {
+        const { city } = getParams(this.props.location.search);
+        const dmsData = await getDMSDataByCDN(`/7/10/city/${city}`, this.props.location.search);
+        this.setState({
+            dmsData,
+        });
+    };
+    ...
+    render() {
+       ...
+    }
+}
+```
+
+### 高级
+
+#### 配置应用参数
 
 * 在参数列表新建参数
 * 编辑参数：
@@ -107,9 +248,39 @@
     2. 可以使用手动配置 `key value 形式的对象数组` ，点击+号手动添加下拉菜单项，最后选择【提交】
 
 * 参数可以配合审核地址使用（审核地址里面使用大括号{}包装参数将自动解析，动态生成审核地址）
+* 使用DMS自身生成参数列表示例Schema（城市参数为例）：
+
+    ```json
+    {
+      "title": "编辑城市值",
+      "description": "用于城市选择下拉菜单",
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["key", "value"],
+        "properties": {
+          "key": {
+            "type": "string",
+            "title": "下拉菜单提交值（如：chengdu）"
+          },
+          "value": {
+            "type": "string",
+            "title": "下拉菜单项名称（如：成都）"
+          }
+        },
+        "message": {
+          "required": "必须完整填写表单的每一项"
+        }
+      }
+    }
+    ```
 
 
-### DMS自定义文件上传（配合使用[dms-upload](https://github.com/win-winFE/dms-upload)）
+
+
+#### DMS自定义文件上传（配合使用[dms-upload](https://github.com/win-winFE/dms-upload)）
 
 ```bash
 # 有任何问题可以加最下面的QQ群
@@ -125,7 +296,7 @@
 > yarn start # npm run start
 ```
 
-### 数据访问（配合使用[dms-api](https://github.com/win-winFE/dms-api)）
+#### 数据访问（配合使用[dms-api](https://github.com/win-winFE/dms-api)）
 
 ```bash
 # 有任何问题可以加最下面的微信群
@@ -137,7 +308,7 @@
 > yarn start # npm run start
 ```
 
-### 数据审核（配合使用[dms-fetch](https://github.com/win-winFE/dms-fetch)）
+#### 数据审核（配合使用[dms-fetch](https://github.com/win-winFE/dms-fetch)）
 
 ```bash
 # 有任何问题可以加最下面的微信群
@@ -145,36 +316,7 @@
 > yarn add dms-fetch # npm install --save dms-fetch
 ```
 
-**在自己项目中使用`dms-api`获取数据示例**
-
-```js
-import { getDMSDataByServer, getDMSDataByCDN } from 'dms-fetch';
-
-// nodejs/browser：使用Redis存储数据
-const getData = async (req) => {
-  const { search } = req; // 伪代码，获取到url的search部分传给getDMSDataByServer
-  try {
-    // 建议封装统一获取DMS数据方法，只需要替换params后面的参数即可
-    // node.js
-    const res = await getDMSDataByServer('http://127.0.0.1:7102/api/dmsGetData?params=/1/1', search);
-    // browser
-    // const res = await getDMSDataByServer('http://127.0.0.1:7102/api/dmsGetData?params=/1/1');
-    if (res.success) {
-      // 获取到数据
-      return res.data;      
-    }
-    return false;
-  } catch (e) {
-    console.error('获取DMS数据失败');
-  }
-};
-
-// nodejs/browser：使用CDN存储数据，请使用getDMSDataByCDN
-// 需自己将数据生成成json传至CDN
-
-```
-
-**审核**
+#### 审核
 
 在DMS中配置【开发配置】->【模块管理】中配置【关联审核地址】
 
@@ -185,7 +327,56 @@ const getData = async (req) => {
 https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址也会不一样
 ```
 
+#### 调试
+
+```bash
+> yarn dev # npm run dev 编译后请替换public里相关文件，并修改config/manifest.json
+```
+
 ### FAQ
+
+<details>
+  <summary>如何使用CDN？</summary>
+  1. 直接利用nginx将相关目录映射出去
+  2. 使用[lsyncd](https://github.com/axkibe/lsyncd)将相关目录同步到线上相关CDN机器、云存储等（有些CDN需要强刷，目前DMS原生支持Azure CDN强刷）
+</details>
+
+<p></p>
+
+<details>
+  <summary>怎么使用Azure CDN？</summary>
+  1. 打开dms-upload/app/controller/put以下注释
+
+    ```js
+        const { refreshRes } = require('../util/azure'); // 10行左右
+        await refreshRes(fileUrl); // 51行左右
+    ```
+    
+  2.配置Azure CDN相关配置：dms-upload/app/util/azure.js
+</details>
+
+<p></p>
+
+<details>
+  <summary>如果遇到未知错误、意外操作怎么办？</summary>
+  dms自身有Schema自动保存功能，重新进入页面（刷新）即可，也可以打开控制台，每次对Schema的修改都会打印到浏览器的控制台。
+</details>
+
+<p></p>
+
+<details>
+  <summary>为什么不建议直接使用dms-fetch？</summary>
+  dms-fetch只是简单做了数据连接拼装的事情，建议直接将[相关使用到的代码](https://github.com/win-winFE/dms-fetch/blob/master/src/index.js)写入自己项目，统一请求处理，统一错误处理。
+</details>
+
+<p></p>
+
+<details>
+  <summary>salt放在前端，如何做数据链接防盗？？</summary>
+  可以使用我朋友的前端代码加密：[SecurityWorker](https://github.com/qiaozi-tech/SecurityWorker)，独立Javascript VM + 二进制混淆，几乎是不可能做到代码反向的，也就看不到salt了。
+</details>
+
+<p></p>
 
 <details>
   <summary>为什么数据库使用Mysql？而不用MongoDB等Json友好型存储引擎？</summary>
@@ -205,7 +396,13 @@ https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址�
 
 <p></p>
 
-## 参与贡献
+
+### 注意
+
+* 不建议直接使用dms-fetch
+* 若dms不能使用 127.0.0.1:7100 访问dms-upload时，请修改dms/app/util/constants.js中的dmsUploadAPI
+
+### 参与贡献
 
 我非常欢迎你的贡献，你可以通过以下方式和我一起共建 :smiley:：
 

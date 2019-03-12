@@ -34,7 +34,7 @@ function processFiles(files) {
 
 class FilesInfo extends Component {
   render() {
-    const { filesInfo, values, value } = this.props;
+    const { filesInfo, values, value, id } = this.props;
     const arrayData = values[0] ? values : filesInfo;
     return (
       <ul className="file-info">
@@ -42,7 +42,7 @@ class FilesInfo extends Component {
           const newVal = value ? value: val;
           return (
             <li
-              key={newVal}
+              key={id}
               style={{
                 display: "flex",
                 width: "250px",
@@ -139,7 +139,7 @@ class FileWidget extends Component {
             multiple={multiple}
           />
         </p>
-        <FilesInfo filesInfo={filesInfo} values={values} value={value} />
+        <FilesInfo filesInfo={filesInfo} values={values} value={value} id={id} />
       </div>
     );
   }

@@ -88,9 +88,8 @@ export default class Data extends PureComponent {
 
   render() {
     const { formDefinition, formDataStr, formDataJson, paramsStr, uiSchema } = this.state;
-    // <PageHeaderLayout title={`临时数据配置，请求前缀：${constants.commonApi}，唯一标示：${paramsStr}`}>
     return (
-      <PageHeaderLayout title="编辑临时数据">
+      <PageHeaderLayout title={`临时数据配置，唯一标识：${paramsStr}`}>
         <Row gutter={24}>
           <Col span={24}>
             {
