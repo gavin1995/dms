@@ -439,6 +439,9 @@ class ArrayField extends Component {
       enumOptions,
     };
     const Widget = getWidget(schema, widget, widgets);
+
+    if (!Widget) return null;
+
     return (
       <Widget
         id={idSchema && idSchema.$id}
@@ -477,6 +480,9 @@ class ArrayField extends Component {
     const { widgets, formContext } = registry;
     const { widget = "files", ...options } = getUiOptions(uiSchema);
     const Widget = getWidget(schema, widget, widgets);
+
+    if (!Widget) return null;
+
     return (
       <Widget
         options={options}

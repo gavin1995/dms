@@ -112,7 +112,9 @@ export function getWidget(schema, widget, registeredWidgets = {}) {
     return getWidget(schema, registeredWidget, registeredWidgets);
   }
 
-  throw new Error(`No widget "${widget}" for type "${type}"`);
+  // 防止编辑时异常
+  return false;
+  // throw new Error(`No widget "${widget}" for type "${type}"`);
 }
 
 function computeDefaults(schema, parentDefaults, definitions = {}) {
