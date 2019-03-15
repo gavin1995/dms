@@ -342,31 +342,31 @@ https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址�
 
 <details>
   <summary>如何使用CDN？</summary>
-  1. 直接利用nginx将相关目录映射出去
+    
+    1. 直接利用nginx将相关目录映射出去
   
-  2. 使用<a href="https://github.com/axkibe/lsyncd" target="_blank">lsyncd</a>将相关目录同步到线上相关CDN机器、云存储等（有些CDN需要强刷，目前DMS原生支持Azure CDN强刷）
+    2. 使用<a href="https://github.com/axkibe/lsyncd" target="_blank">lsyncd</a>将相关目录同步到线上相关CDN机器、云存储等（有些CDN需要强刷，目前DMS原生支持Azure CDN强刷）
 </details>
 
 <p></p>
 
 <details>
   <summary>怎么使用Azure CDN？</summary>
+  
   1. 打开dms-upload/app/controller/put以下注释
-
-    <code>
-    	const { refreshRes } = require('../util/azure'); // 10行左右
-    </code><br>
-    <code>
-       await refreshRes(fileUrl); // 51行左右
-    </code>
+    
+    const { refreshRes } = require('../util/azure'); // 10行左右
+    await refreshRes(fileUrl); // 51行左右
     
   2.配置Azure CDN相关配置：dms-upload/app/util/azure.js
+
 </details>
 
 <p></p>
 
 <details>
   <summary>如果遇到未知错误、意外操作怎么办？</summary>
+  
   dms自身有Schema自动保存功能，重新进入页面（刷新）即可，也可以打开控制台，每次对Schema的修改都会打印到浏览器的控制台。
 </details>
 
@@ -374,6 +374,7 @@ https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址�
 
 <details>
   <summary>为什么不建议直接使用dms-fetch？</summary>
+  
   dms-fetch只是简单做了数据连接拼装的事情，建议直接将<a href="https://github.com/win-winFE/dms-fetch/blob/master/src/index.js" target="_blank">相关使用到的代码</a>写入自己项目，统一请求处理，统一错误处理。
 </details>
 
