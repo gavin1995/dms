@@ -343,9 +343,9 @@ https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址�
 <details>
   <summary>如何使用CDN？</summary>
     
-    1. 直接利用nginx将相关目录映射出去
+  1. 直接利用nginx将相关目录映射出去
   
-    2. 使用<a href="https://github.com/axkibe/lsyncd" target="_blank">lsyncd</a>将相关目录同步到线上相关CDN机器、云存储等（有些CDN需要强刷，目前DMS原生支持Azure CDN强刷）
+  2. 使用<a href="https://github.com/axkibe/lsyncd" target="_blank">lsyncd</a>将相关目录同步到线上相关CDN机器、云存储等（有些CDN需要强刷，目前DMS原生支持Azure CDN强刷）
 </details>
 
 <p></p>
