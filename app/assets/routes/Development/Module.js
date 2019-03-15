@@ -65,11 +65,11 @@ export default class Module extends PureComponent {
   };
 
   handleCreateModuleSubmit = async () => {
-    this.setState({
-      modalVisible: false,
-    });
     await this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (err) return;
+      this.setState({
+        modalVisible: false,
+      });
       const res = await ca.post('/api/moduleCreate', {
         ...values,
         app_id: this.state.appId,

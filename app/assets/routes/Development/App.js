@@ -109,11 +109,11 @@ export default class App extends PureComponent {
   };
 
   handleCreateAppSubmit = async () => {
-    this.setState({
-      appModalVisible: false,
-    });
     await this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (err) return;
+      this.setState({
+        appModalVisible: false,
+      });
       const res = await ca.post('/api/appCreate', values);
       if (!res) return;
       await this.fetchAppListByFilter();

@@ -107,11 +107,11 @@ export default class Param extends PureComponent {
   };
 
   handleCreateParamSubmit = async () => {
-    this.setState({
-      modalVisible: false,
-    });
     await this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (err) return;
+      this.setState({
+        modalVisible: false,
+      });
       const res = await ca.post('/api/paramCreate', {
         ...values,
         app_id: this.state.appId,
