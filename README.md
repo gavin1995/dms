@@ -22,8 +22,11 @@
 #### 使用场景有哪些？
 
 无论前端、后端、移动端、运维，理论上所有需要动态配置数据的场景都可以使用。
+
 针对前端、移动端：可以配置页面每个模块展示型数据，也可以配置各种版本号用于动态更新，各种功能开关、页面主题等。
+
 针对后端：可以配置业务相关的ID，配置类目，城市列表，热门等。
+
 针对运维：可以作为区分环境的配置中心等。
 
 当然使用场景远不止这些......
@@ -96,7 +99,9 @@
 
 **注册**
 
-进入：http://localhost:7101，将自动跳转到登录页，选择【注册】，按要求填写相关数据，注册成功将自动跳转到【应用管理】页面
+进入：`http://localhost:7101`
+
+将自动跳转到登录页，选择【注册】，按要求填写相关数据，注册成功将自动跳转到【应用管理】页面
 
 **新建示例应用**
 
@@ -338,7 +343,8 @@ https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址�
 <details>
   <summary>如何使用CDN？</summary>
   1. 直接利用nginx将相关目录映射出去
-  2. 使用[lsyncd](https://github.com/axkibe/lsyncd)将相关目录同步到线上相关CDN机器、云存储等（有些CDN需要强刷，目前DMS原生支持Azure CDN强刷）
+  
+  2. 使用<a href="https://github.com/axkibe/lsyncd" target="_blank">lsyncd</a>将相关目录同步到线上相关CDN机器、云存储等（有些CDN需要强刷，目前DMS原生支持Azure CDN强刷）
 </details>
 
 <p></p>
@@ -347,10 +353,12 @@ https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址�
   <summary>怎么使用Azure CDN？</summary>
   1. 打开dms-upload/app/controller/put以下注释
 
-    ```js
-        const { refreshRes } = require('../util/azure'); // 10行左右
-        await refreshRes(fileUrl); // 51行左右
-    ```
+    <code>
+    	const { refreshRes } = require('../util/azure'); // 10行左右
+    </code><br>
+    <code>
+       await refreshRes(fileUrl); // 51行左右
+    </code>
     
   2.配置Azure CDN相关配置：dms-upload/app/util/azure.js
 </details>
@@ -366,14 +374,15 @@ https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址�
 
 <details>
   <summary>为什么不建议直接使用dms-fetch？</summary>
-  dms-fetch只是简单做了数据连接拼装的事情，建议直接将[相关使用到的代码](https://github.com/win-winFE/dms-fetch/blob/master/src/index.js)写入自己项目，统一请求处理，统一错误处理。
+  dms-fetch只是简单做了数据连接拼装的事情，建议直接将<a href="https://github.com/win-winFE/dms-fetch/blob/master/src/index.js" target="_blank">相关使用到的代码</a>写入自己项目，统一请求处理，统一错误处理。
 </details>
 
 <p></p>
 
 <details>
   <summary>salt放在前端，如何做数据链接防盗？？</summary>
-  可以使用我朋友的前端代码加密：[SecurityWorker](https://github.com/qiaozi-tech/SecurityWorker)，独立Javascript VM + 二进制混淆，几乎是不可能做到代码反向的，也就看不到salt了。
+  可以使用我朋友的前端代码加密：
+  <a href="https://github.com/qiaozi-tech/SecurityWorker" target="_blank">SecurityWorker</a>，独立Javascript VM + 二进制混淆，几乎是不可能做到代码反向的，也就看不到salt了。
 </details>
 
 <p></p>
