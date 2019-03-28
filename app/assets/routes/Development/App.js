@@ -11,7 +11,8 @@ import {
   Modal,
   Table,
   message,
-  Transfer
+  Transfer,
+  notification
 } from 'antd';
 
 import ca from '../../utils/ca';
@@ -221,6 +222,7 @@ export default class App extends PureComponent {
             <Button type="primary" ghost onClick={() => this.handleModuleRoute(record.id)}>模块列表</Button>
             <Button type="primary" ghost onClick={() => this.handleParamRoute(record.id)}>参数列表</Button>
             <Button type="primary" ghost onClick={() => this.showAuthModalByAppId(record.id)}>授权</Button>
+            <Button type="primary" ghost onClick={() => notification.info({ message: `${record.name_cn} 描述`, description: record.description })}>查看描述</Button>
             {/* <Button type="primary" ghost>编辑</Button> */}
             {/*<Button type="danger" ghost>删除</Button>*/}
           </span>

@@ -71,7 +71,7 @@ export default class Schema extends PureComponent {
   autoSave = () => {
     // 每15次操作，自动保存
     operationsNumber += 1;
-    if (operationsNumber % 15 === 0) {
+    if (operationsNumber && operationsNumber % 15 === 0) {
       const { definition, moduleId, currentUISchema } = this.state;
       // json验证
       ca.post('/api/moduleEditDefinition', {
@@ -114,6 +114,10 @@ export default class Schema extends PureComponent {
   submitDefinition = async () => {
     try {
       const { definition, moduleId, currentUISchema } = this.state;
+      if (!definition) {
+        message.error('保存失败，请填写Json Schema');
+        return
+      }
       // json验证
       const res = await ca.post('/api/moduleEditDefinition', {
         definition, // str
@@ -180,7 +184,7 @@ export default class Schema extends PureComponent {
           </Col>
           <Col span={12}>
             {
-              formDefinition ?
+              typeof formDefinition === 'object' && formDefinition ?
                 <JsonSchemaForm
                   // liveValidate
                   // showErrorList={false}

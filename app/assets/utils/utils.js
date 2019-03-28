@@ -1,4 +1,5 @@
 import moment from 'moment';
+import MD5 from 'md5.js';
 
 export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
@@ -308,3 +309,4 @@ export const getParamsString = (params) => {
   }).join('');
 };
 
+export const md5 = (str, salt='winwinfe') => new MD5().update(str + salt).digest('hex');

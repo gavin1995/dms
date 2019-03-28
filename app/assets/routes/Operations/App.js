@@ -11,6 +11,7 @@ import {
   Card,
   Modal,
   Table,
+  notification
 } from 'antd';
 
 import ca from '../../utils/ca';
@@ -169,6 +170,7 @@ export default class App extends PureComponent {
         render: (text, record) => (
           <span className={styles.tableOperatingButton}>
             <Button type="primary" ghost onClick={() => this.handleModuleRoute(record.id)}>模块列表</Button>
+            <Button type="primary" ghost onClick={() => notification.info({ message: `${record.name_cn} 描述`, description: record.description })}>查看描述</Button>
           </span>
         ),
       },
@@ -187,7 +189,7 @@ export default class App extends PureComponent {
                     placeholder="请输入应用名"
                     onSearch={this.handleSearch}
                     enterButton
-                    style={{ width: 400, marginLeft: 16 }}
+                    style={{ width: 400 }}
                   />
                 </div>
                 <Table

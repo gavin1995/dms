@@ -14,7 +14,7 @@ import ca from '../../utils/ca';
 import constants from '../../utils/constants';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import { getParams } from "../../utils/url";
-import { toJson, getParamsString } from "../../utils/utils";
+import { toJson, getParamsString, md5 } from "../../utils/utils";
 import './Data.less';
 
 @Form.create()
@@ -86,10 +86,21 @@ export default class Data extends PureComponent {
     message.success(`添加数据成功，审核后同步, cdn地址: ${res}`);
   };
 
+  buildDes = () => (
+    <div>
+      临时数据: <a href={constants.cdnPrefix + md5('y' + this.state.paramsStr) + '.json'} target="_blank">{constants.cdnPrefix + md5('y' + this.state.paramsStr)}.json</a>
+      <br/>
+      正式数据: <a href={constants.cdnPrefix + md5('n' + this.state.paramsStr) + '.json'} target="_blank">{constants.cdnPrefix + md5('n' + this.state.paramsStr)}.json</a>
+    </div>
+  );
+
   render() {
     const { formDefinition, formDataStr, formDataJson, paramsStr, uiSchema } = this.state;
     return (
-      <PageHeaderLayout title={`临时数据配置，唯一标识：${paramsStr}`}>
+      <PageHeaderLayout
+        title={`编辑临时数据，当前数据唯一标示：${paramsStr}`}
+        content={this.buildDes()}
+      >
         <Row gutter={24}>
           <Col span={24}>
             {
