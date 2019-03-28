@@ -58,6 +58,10 @@
 #### TODO
 
 - [ ] 在线Demo
+- [ ] 支持anyOf
+- [ ] 实时错误提示
+- [ ] 错误提示支持中文
+- [ ] 运营/产品权限区分
 - [x] 统一表单图片上传管理
 - [x] 应用、模块、参数、权限管理
 - [x] 使用Redis缓存数据（需配合使用：[dms-api](https://github.com/win-winFE/dms-api)）
