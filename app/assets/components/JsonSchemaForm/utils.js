@@ -1,9 +1,8 @@
 import React from "react";
-import axios from "axios";
 import validateFormData from "./validate";
 import fill from "core-js/library/fn/array/fill";
-
-import constants from "./constants";
+import ca from "../../utils/ca";
+import constants from "../JsonSchemaForm/constants";
 
 export const ADDITIONAL_PROPERTY_FLAG = "__additional_property";
 
@@ -55,6 +54,7 @@ const widgetMap = {
     select: "SelectWidget",
     checkboxes: "CheckboxesWidget",
     files: "FileWidget",
+    hidden: "HiddenWidget",
   },
 };
 
@@ -69,9 +69,19 @@ export function getDefaultRegistry() {
 
 export function getSchemaType(schema) {
   let { type } = schema;
-  if (!type && schema.enum) {
-    type = "string";
+
+  if (!type && schema.const) {
+    return guessType(schema.const);
   }
+
+  if (!type && schema.enum) {
+    return "string";
+  }
+
+  if (type instanceof Array && type.length === 2 && type.includes("null")) {
+    return type.find(type => type !== "null");
+  }
+
   return type;
 }
 
@@ -162,9 +172,12 @@ function computeDefaults(schema, parentDefaults, definitions = {}) {
           if (schema.minItems > defaultsLength) {
             const defaultEntries = defaults || [];
             // populate the array with the defaults
+            const fillerSchema = Array.isArray(schema.items)
+              ? schema.additionalItems
+              : schema.items;
             const fillerEntries = fill(
               new Array(schema.minItems - defaultsLength),
-              computeDefaults(schema.items, schema.items.defaults, definitions)
+              computeDefaults(fillerSchema, fillerSchema.defaults, definitions)
             );
             // then fill up the rest with either the item default or empty, up to minItems
 
@@ -395,6 +408,9 @@ function findSchemaDefinition($ref, definitions = {}) {
     let current = definitions;
     for (let part of parts) {
       part = part.replace(/~1/g, "/").replace(/~0/g, "~");
+      while (current.hasOwnProperty("$ref")) {
+        current = findSchemaDefinition(current.$ref, definitions);
+      }
       if (current.hasOwnProperty(part)) {
         current = current[part];
       } else {
@@ -411,7 +427,7 @@ function findSchemaDefinition($ref, definitions = {}) {
 
 // In the case where we have to implicitly create a schema, it is useful to know what type to use
 //  based on the data we are defining
-const guessType = function guessType(value) {
+export const guessType = function guessType(value) {
   if (Array.isArray(value)) {
     return "array";
   } else if (typeof value === "string") {
@@ -725,7 +741,9 @@ export function toIdSchema(
       field,
       fieldId,
       definitions,
-      formData[name],
+      // It's possible that formData is not an object -- this can happen if an
+      // array item has just been added, but not populated with data yet
+      (formData || {})[name],
       idPrefix
     );
   }
@@ -835,7 +853,7 @@ export const sign = async (
   username = constants.uploadUsername,
   password = constants.uploadPassword
 ) => {
-  const { data } = await axios.post(`${constants.uploadBaseUrl}/sign`, {
+  const { data } = await ca.post(`${constants.uploadBaseUrl}/sign`, {
     username,
     password,
   });

@@ -10,7 +10,7 @@ import {
   Table,
   message
 } from 'antd';
-import JsonSchemaForm from "../../components/JsonSchema";
+import JsonSchemaForm from "../../components/JsonSchemaForm";
 
 import ca from '../../utils/ca';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';

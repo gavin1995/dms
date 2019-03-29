@@ -1,11 +1,11 @@
 {
   "name": "dms",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A json data manage system for json-schema.",
   "private": true,
   "scripts": {
     "dev": "egg-bin dev --port=7101",
-    "build": "roadhog build",
+    "build": "cross-env ESLINT=none roadhog build",
     "start": "egg-scripts start --daemon --title=dms --env=prod --port=7101",
     "stop": "egg-scripts stop --title=dms"
   },
@@ -21,6 +21,7 @@
     "@antv/data-set": "^0.10.1",
     "@babel/polyfill": "^7.0.0",
     "ajv": "^6.6.2",
+    "ajv-i18n": "^3.4.0",
     "antd": "^3.10.9",
     "axios": "^0.18.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.5",

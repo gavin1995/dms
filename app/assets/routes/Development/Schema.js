@@ -5,7 +5,7 @@ import {
   Col,
   message
 } from 'antd';
-import JsonSchemaForm from "../../components/JsonSchema";
+import JsonSchemaForm from "../../components/JsonSchemaForm";
 import AceEditor from 'react-ace';
 import 'brace/mode/json';
 import 'brace/theme/monokai';
@@ -150,9 +150,6 @@ export default class Schema extends PureComponent {
               width={"100%"}
               height={"780px"}
               setOptions={{
-                enableBasicAutocompletion: false,
-                enableLiveAutocompletion: false,
-                enableSnippets: false,
                 showLineNumbers: true,
                 tabSize: 2,
               }}
@@ -171,9 +168,6 @@ export default class Schema extends PureComponent {
               width={"100%"}
               height={"780px"}
               setOptions={{
-                enableBasicAutocompletion: false,
-                enableLiveAutocompletion: false,
-                enableSnippets: false,
                 showLineNumbers: true,
                 tabSize: 2,
               }}
@@ -186,15 +180,15 @@ export default class Schema extends PureComponent {
             {
               typeof formDefinition === 'object' && formDefinition ?
                 <JsonSchemaForm
-                  // liveValidate
-                  // showErrorList={false}
+                  liveValidate
+                  showErrorList={false}
                   // transformErrors={transformErrors}
                   isTest={true}
                   schema={formDefinition}
                   formData={formDataJson}
                   uiSchema={uiSchema}
                   onChange={this.onChange}
-                  onSubmit={() => console.log("submitted")}
+                  onSubmit={() => message.info('保存数据请移步至【数据配置】')}
                   onError={() => console.log("errors")}
                 />
                 :

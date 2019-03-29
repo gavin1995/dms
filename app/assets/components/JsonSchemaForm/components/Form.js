@@ -54,14 +54,13 @@ export default class Form extends Component {
     const uiSchema = "uiSchema" in props ? props.uiSchema : this.props.uiSchema;
     const edit = typeof props.formData !== "undefined";
     const liveValidate = props.liveValidate || this.props.liveValidate;
-    const isTest = props.isTest || this.props.isTest;
     const mustValidate = edit && !props.noValidate && liveValidate;
     const { definitions } = schema;
     const formData = getDefaultFormState(schema, props.formData, definitions);
     const retrievedSchema = retrieveSchema(schema, definitions, formData);
-
+    const additionalMetaSchemas = props.additionalMetaSchemas;
     const { errors, errorSchema } = mustValidate
-      ? this.validate(formData, schema)
+      ? this.validate(formData, schema, additionalMetaSchemas)
       : {
           errors: state.errors || [],
           errorSchema: state.errorSchema || {},
@@ -81,7 +80,7 @@ export default class Form extends Component {
       edit,
       errors,
       errorSchema,
-      isTest,
+      additionalMetaSchemas,
     };
   }
 
@@ -89,7 +88,11 @@ export default class Form extends Component {
     return shouldRender(this, nextProps, nextState);
   }
 
-  validate(formData, schema = this.props.schema) {
+  validate(
+    formData,
+    schema = this.props.schema,
+    additionalMetaSchemas = this.props.additionalMetaSchemas
+  ) {
     const { validate, transformErrors } = this.props;
     const { definitions } = this.getRegistry();
     const resolvedSchema = retrieveSchema(schema, definitions, formData);
@@ -97,7 +100,8 @@ export default class Form extends Component {
       formData,
       resolvedSchema,
       validate,
-      transformErrors
+      transformErrors,
+      additionalMetaSchemas
     );
   }
 
@@ -153,6 +157,7 @@ export default class Form extends Component {
 
   onSubmit = event => {
     event.preventDefault();
+    event.persist();
 
     if (!this.props.noValidate) {
       const { errors, errorSchema } = this.validate(this.state.formData);
@@ -170,7 +175,7 @@ export default class Form extends Component {
 
     this.setState({ errors: [], errorSchema: {} }, () => {
       if (this.props.onSubmit) {
-        this.props.onSubmit({ ...this.state, status: "submitted" });
+        this.props.onSubmit({ ...this.state, status: "submitted" }, event);
       }
     });
   };
@@ -214,14 +219,7 @@ export default class Form extends Component {
       disabled,
     } = this.props;
 
-    const {
-      schema,
-      uiSchema,
-      formData,
-      errorSchema,
-      idSchema,
-      isTest,
-    } = this.state;
+    const { schema, uiSchema, formData, errorSchema, idSchema } = this.state;
     const registry = this.getRegistry();
     const _SchemaField = registry.fields.SchemaField;
 
@@ -259,13 +257,11 @@ export default class Form extends Component {
         {children ? (
           children
         ) : (
-          <p>
-            {isTest ? null : (
-              <button type="submit" className="btn btn-info">
-                提交
-              </button>
-            )}
-          </p>
+          <div>
+            <button type="submit" className="btn btn-info">
+              提交
+            </button>
+          </div>
         )}
       </form>
     );
@@ -305,5 +301,6 @@ if (process.env.NODE_ENV !== "production") {
     transformErrors: PropTypes.func,
     safeRenderCompletion: PropTypes.bool,
     formContext: PropTypes.object,
+    additionalMetaSchemas: PropTypes.arrayOf(PropTypes.object),
   };
 }

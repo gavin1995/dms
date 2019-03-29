@@ -5,7 +5,7 @@ import {
   Col,
   message,
 } from 'antd';
-import JsonSchemaForm from '../../components/JsonSchema';
+import JsonSchemaForm from '../../components/JsonSchemaForm';
 import AceEditor from 'react-ace';
 import 'brace/mode/json';
 import 'brace/theme/monokai';
@@ -106,6 +106,7 @@ export default class Data extends PureComponent {
             {
               formDefinition && (formDataJson || formDataJson === null) ?
                 <JsonSchemaForm
+                  liveValidate
                   schema={formDefinition}
                   formData={formDataJson}
                   uiSchema={uiSchema}

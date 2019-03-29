@@ -39,7 +39,8 @@ class FilesInfo extends Component {
     return (
       <ul className="file-info">
         {arrayData.map((val) => {
-          const newVal = value ? value: val;
+          val = val ? val.replace(/https:\/\/8\.yingyinglicai\.com\/lyfe\/dms\/res/, 'http://10.100.8.30:5000/lyfe/dms/res') : val;
+          const newVal = value ? value.replace(/https:\/\/8\.yingyinglicai\.com\/lyfe\/dms\/res/, 'http://10.100.8.30:5000/lyfe/dms/res') : val;
           return (
             <li
               key={id}
