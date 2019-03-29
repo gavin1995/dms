@@ -10,12 +10,9 @@ class AuthController extends Controller {
     const { ctx } = this;
     const { userId } = ctx.base;
     const { app_id, user_ids } = ctx.request.body;
-    // 查询当前操作者是否为该应用的owner
-    const appRest = await ctx.model.Application.findIdByAppIdAndOwnerId(userId, app_id);
-    if (!appRest || !appRest.dataValues) {
-      ctx.body = response.simpleError('没有操作权限');
-      return;
-    }
+    // 权限验证
+    const auth = await this.checkAuth(app_id);
+    if (!auth) return;
     // 把现有权限记录全部软删除
     await ctx.model.Auth.deleteAuthByAppId(app_id, userId);
 
@@ -37,13 +34,11 @@ class AuthController extends Controller {
   // 先删除后插入
   async edit() {
     const { ctx } = this;
-    const { app_id, user_ids } = ctx.request.body;
     const { userId } = ctx.base;
-    const res = await ctx.model.Application.findIdByAppIdAndOwnerId(userId, app_id);
-    if (!res || !res.dataValues) {
-      ctx.body = response.simpleError('权限不足');
-      return;
-    }
+    const { app_id, user_ids } = ctx.request.body;
+    // 权限验证
+    const auth = await this.checkAuth(app_id);
+    if (!auth) return;
     // 先删除
     await ctx.model.Auth.update({
       soft_delete: 1, // 未删除/已删除：0/1
@@ -73,13 +68,10 @@ class AuthController extends Controller {
   // 通过AppId获取权限列表
   async list() {
     const { ctx } = this;
-    const { userId } = ctx.base;
     const { app_id } = ctx.queries;
-    const res = await ctx.model.Application.findIdByAppIdAndOwnerId(userId, app_id);
-    if (!res) {
-      ctx.body = response.simpleError('权限不足');
-      return;
-    }
+    // 权限验证
+    const auth = await this.checkAuth(app_id);
+    if (!auth) return;
     const userIdsRes = await ctx.model.Auth.findUserIdsByAppId(app_id);
     const userIds = userIdsRes.map(userIdRes => userIdRes.user_id);
     console.log(userIdsRes);
@@ -97,6 +89,20 @@ class AuthController extends Controller {
       user.real_name = users[user.user_id];
     });
     ctx.body = response.success(userIdsRes);
+  }
+
+  async checkAuth(app_id) {
+    const { ctx } = this;
+    const { userId, type } = ctx.base;
+    if (type !== 1) {
+      // 非超管
+      const res = await ctx.model.Application.findIdByAppIdAndOwnerId(userId, app_id);
+      if (!res) {
+        ctx.body = response.simpleError('权限不足');
+        return false;
+      }
+    }
+    return true;
   }
 }
 

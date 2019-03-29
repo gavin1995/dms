@@ -54,7 +54,7 @@ module.exports = app => {
 
   User.findPasswordByUsername = async username => {
     return await User.findOne({
-      attributes: [ 'id', 'password' ],
+      attributes: [ 'id', 'username', 'type', 'password' ],
       where: {
         username,
         soft_delete: 0,

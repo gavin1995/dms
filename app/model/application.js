@@ -159,5 +159,38 @@ module.exports = app => {
     });
   };
 
+  // 超管列表
+  Application.findSuAllList = async (page = 1, name = '', page_size = 15) => {
+    page = parseInt(page, 10);
+    page_size = parseInt(page_size, 10);
+    return await Application.findAndCountAll({
+      attributes: {
+        exclude: [ 'soft_delete', 'create_time', 'update_time', 'create_guid' ],
+      },
+      where: {
+        $or: [
+          {
+            name_cn: {
+              $like: `%${name}%`,
+            },
+          },
+          {
+            name_en: {
+              $like: `%${name}%`,
+            },
+          },
+        ],
+        soft_delete: 0,
+      },
+      offset: (page - 1) * page_size,
+      limit: page_size,
+      order: [
+        [ 'update_time', 'DESC' ],
+      ],
+      raw: true,
+    });
+  };
+
+
   return Application;
 };

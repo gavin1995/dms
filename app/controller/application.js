@@ -74,11 +74,18 @@ class ApplicationController extends Controller {
     // const page = ctx.params.page || 1;
     // const { page, name, page_size } = ctx.params;
     const { page, name, page_size } = ctx.queries;
-    const { userId } = ctx.base;
+    const { userId, type } = ctx.base; // 1：超管，2：开发主管；3：运营主管；4：普通开发；5：普通运营
     // 获取当前拥有权限的应用ids
-    const appIdsObj = await ctx.model.Auth.findAppIdsByUserId(userId);
-    const appIds = appIdsObj.map(appIdObj => appIdObj.app_id);
-    const appList = await ctx.model.Application.findAllList(userId, appIds, page, name, page_size);
+    let appList;
+    if (type === 1) {
+      // 超管
+      appList = await ctx.model.Application.findSuAllList(page, name, page_size);
+    } else {
+      // 非超管
+      const appIdsObj = await ctx.model.Auth.findAppIdsByUserId(userId);
+      const appIds = appIdsObj.map(appIdObj => appIdObj.app_id);
+      appList = await ctx.model.Application.findAllList(userId, appIds, page, name, page_size);
+    }
     let userIds = [];
     appList.rows.forEach(appInfo => {
       userIds.push(appInfo.owner_id, appInfo.updater_id, appInfo.operation_manager_id, appInfo.creator_id);

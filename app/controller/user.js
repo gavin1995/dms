@@ -24,7 +24,7 @@ class UserController extends Controller {
       ctx.body = response.simpleError('用户名或密码不正确');
       return false;
     }
-    return this.jwtAuth(ctx, data.dataValues.id, username);
+    return this.jwtAuth(ctx, data.dataValues);
   }
 
   async create() {
@@ -62,7 +62,7 @@ class UserController extends Controller {
       ctx.body = response.simpleError('注册失败，请重试');
       return;
     }
-    return this.jwtAuth(ctx, res.dataValues.id, username);
+    return this.jwtAuth(ctx, res.dataValues);
   }
 
   async edit() {
@@ -123,6 +123,7 @@ class UserController extends Controller {
       user_id: dataValues.id,
       username: dataValues.username,
       nickname: dataValues.nickname,
+      real_name: dataValues.real_name,
       avatar: dataValues.avatar,
       employee_id: dataValues.employee_id,
     });
@@ -150,12 +151,13 @@ class UserController extends Controller {
     return res.some(item => item);
   }
 
-  jwtAuth(ctx, userId, username) {
+  jwtAuth(ctx, user) {
     const expiration = moment(moment().add(30, 'd').format('YYYY-MM-DD 00:00:00')).unix();
     const token = jwt.sign({
-      username,
-      userId: userId,
-      sub: userId,
+      username: user.username,
+      userId: user.id,
+      type: user.type, // 1：超管，2：开发主管；3：运营主管；4：普通开发；5：普通运营
+      sub: user.id,
       iat: moment().unix(),
       exp: expiration,
     }, constants.jwtSecret);

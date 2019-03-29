@@ -37,6 +37,7 @@ export default class GlobalHeader extends PureComponent {
       collapsed,
       isMobile,
       logo,
+      currentUser,
     } = this.props;
     return (
       <div className={styles.header}>
@@ -52,6 +53,7 @@ export default class GlobalHeader extends PureComponent {
           onClick={this.toggle}
         />
         <div className={styles.right}>
+          欢迎 {currentUser.real_name}
           <Tooltip placement="bottom" title="退出登录">
             <a
               className={styles.action}
