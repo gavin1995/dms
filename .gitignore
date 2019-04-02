@@ -1,7 +1,6 @@
 node_modules
 .idea
 logs
-yarn.lock
 yarn-*.log
 .DS_Store
 CODE_OF_CONDUCT.md
