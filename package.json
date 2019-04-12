@@ -1,6 +1,6 @@
 {
   "name": "dms",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "A json data manage system for json-schema.",
   "private": true,
   "scripts": {
@@ -37,7 +37,7 @@
     "egg": "^2.14.1",
     "egg-redis": "^2.0.0",
     "egg-scripts": "^2.10.0",
-    "egg-sequelize": "^4.2.0",
+    "egg-sequelize": "^4.3.1",
     "egg-validate": "^2.0.2",
     "egg-view-assets": "^1.3.0",
     "enquire-js": "^0.2.1",

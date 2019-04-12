@@ -1173,8 +1173,8 @@
     "@types/node" "*"
 
 "@types/lodash@*":
-  version "4.14.122"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.122.tgz#3e31394c38cf1e5949fb54c1192cbc406f152c6c"
+  version "4.14.123"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.123.tgz#39be5d211478c8dd3bdae98ee75bb7efe4abfe4d"
 
 "@types/mime@*":
   version "2.0.1"
@@ -1238,8 +1238,8 @@
     csstype "^2.2.0"
 
 "@types/sequelize@^4.27.24":
-  version "4.27.39"
-  resolved "https://registry.yarnpkg.com/@types/sequelize/-/sequelize-4.27.39.tgz#af5ac8f50a872ddfb52c625b3cd1c8fdcaf222a7"
+  version "4.27.47"
+  resolved "https://registry.yarnpkg.com/@types/sequelize/-/sequelize-4.27.47.tgz#32d469eca5a101fa98af090b16d384692d0d596e"
   dependencies:
     "@types/bluebird" "*"
     "@types/continuation-local-storage" "*"
@@ -1260,8 +1260,8 @@
     "@types/node" "*"
 
 "@types/validator@*":
-  version "10.9.0"
-  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-10.9.0.tgz#747f36c7ad281da769458ab4c3b8837aee1578b6"
+  version "10.11.0"
+  resolved "https://registry.yarnpkg.com/@types/validator/-/validator-10.11.0.tgz#aae9009ce28cc4f878e32c34d3900a81193c98d5"
 
 "@types/yargs@^12.0.4":
   version "12.0.9"
@@ -2826,9 +2826,13 @@ black-hole-stream@~0.0.1:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/black-hole-stream/-/black-hole-stream-0.0.1.tgz#33b7a06b9f1e7453d6041b82974481d2152aea42"
 
-bluebird@^3.3.4, bluebird@^3.4.6, bluebird@^3.4.7, bluebird@^3.5.0, bluebird@^3.5.1:
+bluebird@^3.3.4, bluebird@^3.4.7, bluebird@^3.5.1:
   version "3.5.3"
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.3.tgz#7d01c6f9616c9a51ab0f8c549a79dfe6ec33efa7"
+
+bluebird@^3.4.6, bluebird@^3.5.0:
+  version "3.5.4"
+  resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.4.tgz#d6cc661595de30d5b3af5fcedd3c0b3ef6ec5714"
 
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.8"
@@ -4936,7 +4940,7 @@ egg-security@^2.4.3:
     type-is "^1.6.15"
     xss "^1.0.3"
 
-egg-sequelize@^4.2.0:
+egg-sequelize@^4.3.1:
   version "4.3.1"
   resolved "https://registry.yarnpkg.com/egg-sequelize/-/egg-sequelize-4.3.1.tgz#698a9572ee9a3ad3fe164f99a118264f4db2db0b"
   dependencies:
@@ -11968,8 +11972,8 @@ seq-queue@^0.0.5:
   resolved "https://registry.yarnpkg.com/seq-queue/-/seq-queue-0.0.5.tgz#d56812e1c017a6e4e7c3e3a37a1da6d78dd3c93e"
 
 sequelize@^4.38.0:
-  version "4.43.0"
-  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.43.0.tgz#41c36c7684b0ea23ca7be1c3af3d65f2309a4ca6"
+  version "4.43.1"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-4.43.1.tgz#90afc7383469b6ae3bc76e189c92b62a0c1fda16"
   dependencies:
     bluebird "^3.5.0"
     cls-bluebird "^2.1.0"
