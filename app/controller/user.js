@@ -124,6 +124,7 @@ class UserController extends Controller {
       username: dataValues.username,
       nickname: dataValues.nickname,
       real_name: dataValues.real_name,
+      type: dataValues.type,
       avatar: dataValues.avatar,
       employee_id: dataValues.employee_id,
     });

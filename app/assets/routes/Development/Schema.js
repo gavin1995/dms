@@ -53,7 +53,8 @@ export default class Schema extends PureComponent {
     console.log('当前Schema: ');
     console.log(definition);
     console.log(currentUISchema);
-    this.autoSave();
+    // 关闭自动保存
+    // this.autoSave();
     try {
       const json = JSON.parse(val);
       // JsonSchemaForm 需要object，AceEditor需要json字符串

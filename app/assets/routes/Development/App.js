@@ -22,7 +22,9 @@ import styles from './App.less';
 const FormItem = Form.Item;
 const { TextArea, Search } = Input;
 
-@connect()
+@connect(({ user }) => ({
+  user,
+}))
 @Form.create()
 export default class App extends PureComponent {
   state = {
@@ -41,10 +43,29 @@ export default class App extends PureComponent {
 
 
   componentDidMount() {
-    this.fetchAppListByFilter();
+    this.init();
   }
 
+  init = async () => {
+    await this.props.dispatch({
+      type: 'user/fetchCurrent',
+    });
+    if (!this.checkAuth()) return;
+    await this.fetchAppListByFilter();
+  };
+
+  checkAuth = () => {
+    if (this.props.user.currentUser.type === 5) {
+      // 普通运营
+      message.error('没有当前配置权限，请切换菜单');
+      return;
+      return false;
+    }
+    return true;
+  };
+
   fetchAppListByFilter = async () => {
+    if (!this.checkAuth()) return;
     const { page, name, pageSize } = this.state;
     this.setState({
       appLoading: true,
@@ -79,6 +100,7 @@ export default class App extends PureComponent {
   };
 
   showApplicationModal = () => {
+    if (!this.checkAuth()) return;
     this.setState({
       appModalVisible: true,
     });
