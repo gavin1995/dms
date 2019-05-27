@@ -11,6 +11,7 @@ export default {
   alias: {
     components: path.resolve(__dirname, './app/assets//components/'),
   },
+  outputPath: path.resolve(__dirname, './app/public/'),
   ignoreMomentLocale: true,
   theme: './app/assets//theme.js',
   html: {
@@ -21,6 +22,6 @@ export default {
   publicPath: 'app/public',
   hash: true,
   manifest: {
-    fileName: "../../config/manifest.json",
-  },
+    fileName: path.resolve(__dirname, './config/manifest.json')
+  }
 };
