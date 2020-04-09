@@ -27,7 +27,7 @@ import { getRoutes } from '../utils/utils';
 
 const copyright = (
   <Fragment>
-    Copyright <Icon type="copyright" /> 2019 win-winFE
+    Copyright <Icon type="copyright" /> 2019 gavin1995
   </Fragment>
 );
 

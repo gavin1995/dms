@@ -244,7 +244,7 @@ class BasicLayout extends React.PureComponent {
                 {
                   key: 'github',
                   title: <Icon type="github" />,
-                  href: 'https://github.com/win-winFE/dms',
+                  href: 'https://github.com/gavin1995/dms',
                   blankTarget: true,
                 },
                 // {
@@ -256,7 +256,7 @@ class BasicLayout extends React.PureComponent {
               ]}
               copyright={
                 <Fragment>
-                  Copyright <Icon type="copyright" /> 2019 win-winFE
+                  Copyright <Icon type="copyright" /> 2019 gavin1995
                 </Fragment>
               }
             />
