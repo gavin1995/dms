@@ -433,9 +433,3 @@ https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址�
 - 在你的公司或个人项目中使用`dms`。
 - 通过 [Issue](https://github.com/gavin1995/dms/issues) 报告 bug 或进行咨询。
 - 提交 [Pull Request](https://github.com/gavin1995/dms/pulls) 改进 `dms` 的代码（注意：提交前请先执行`yarn build`产出可直接start启动的代码）。
-
-### 说明
-
-* 本项目出自[gavin1995团队](https://github.com/gavin1995)，如有任何疑问，请扫下面二维码加入我们的QQ群
-
-<img src="https://github.com/gavin1995/dms/blob/master/qrcode.jpeg" width="240px" />
