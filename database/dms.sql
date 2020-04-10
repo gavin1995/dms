@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS `winwinfe_dms`;
+CREATE DATABASE IF NOT EXISTS `dms`;
 
-USE winwinfe_dms;
+USE dms;
 
 DROP TABLE IF EXISTS `dms_user`;
 CREATE TABLE `dms_user` (

@@ -99,10 +99,14 @@
 > mkdir /opt/logs/nodejs -p
 ```
 
+**按需修改配置**
+
+* 将项目根目录下的`.config.js`改名为`config.js`
+* 对`config.js`按需进行配置修改
+
 **执行初始化sql**
 
 * 使用mysql执行 dms/database/dms.sql
-* 修改项目中mysql/redis相关配置dms/config/config.default.js（mysql默认密码为：root1234）
 
 **启动/停止/调试**
 

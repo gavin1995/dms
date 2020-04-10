@@ -7,7 +7,7 @@ module.exports = {
   // mysql配置 TODO: 请修改
   sequelize: {
     dialect: 'mysql',
-    database: 'winwinfe_dms',
+    database: 'dms',
     host: '127.0.0.1',
     port: '3306',
     username: 'root',
