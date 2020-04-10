@@ -5,7 +5,9 @@ const _ = require('lodash');
 const fetch = require('node-fetch');
 
 const response = require('../util/response');
-const constants = require('../util/constants');
+const cfg = require('../../config');
+const { md5 } = require('../util/utils');
+const oss = require('../lib/AliOSS');
 
 class DataController extends Controller {
   async editTempData() {
@@ -15,8 +17,8 @@ class DataController extends Controller {
     const paramsData = `y${params}`;
     // 删除前面的临时数据记录
     await ctx.model.Data.deleteDataByParams(paramsData, userId);
-    // 将最新数据保存到Azure CDN
-    const cdnFile = await this.saveAzureCdn(paramsData, JSON.stringify(data));
+    // 保存到云服务
+    const cdnFile = await this.saveJsonToCloud(paramsData, JSON.stringify(data));
     // 插入新的临时数据
     const createRes = await ctx.model.Data.create({
       module_id,
@@ -49,8 +51,9 @@ class DataController extends Controller {
     const paramsData = `n${params.substring(1)}`;
     // 删除前面的真实数据记录
     await ctx.model.Data.deleteDataByParams(paramsData, userId);
-    // 将最新数据保存到Azure CDN
-    const cdnFile = await this.saveAzureCdn(paramsData, data);
+    // 保存到云服务
+    const cdnFile = await this.saveJsonToCloud(paramsData, data);
+
     // 插入新的真实数据
     const createRes = await ctx.model.Data.create({
       data,
@@ -105,7 +108,7 @@ class DataController extends Controller {
 
   async saveAzureCdn(params, data) {
     try {
-      const res = await fetch(`${constants.dmsUploadAPI}/saveData2CDN`, {
+      const res = await fetch(`${cfg.dmsUploadAPI}/saveData2CDN`, {
         method: 'POST',
         body: JSON.stringify({
           params,
@@ -121,6 +124,25 @@ class DataController extends Controller {
     } catch (e) {
       return false;
     }
+  }
+
+  async saveAliOSS(params, data) {
+    const fileName = md5(params) + '.json';
+    const res = await oss.putJson(fileName, data);
+    return res;
+  }
+
+  // 保存json到云服务
+  async saveJsonToCloud(params, data) {
+    const { useCloud } = this.config;
+    if (!useCloud) return;
+    let cdnFile;
+    if (useCloud === 'OSS') {
+      cdnFile = await this.saveAliOSS(params, data);
+    } else if (this.config.useCloud === 'AZURE') {
+      cdnFile = await this.saveAzureCdn(params, data);
+    }
+    return cdnFile;
   }
 }
 

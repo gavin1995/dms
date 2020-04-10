@@ -45,4 +45,7 @@ module.exports = app => {
   router.post('/api/dataEditTempData', controller.data.editTempData);
   router.post('/api/dataReviewTempData', controller.data.reviewTempData);
   router.get('/api/dataGetTempData', controller.data.getTempData);
+
+  // 上传
+  router.post('/api/putFileByPath', controller.put.putFileByPath);
 };

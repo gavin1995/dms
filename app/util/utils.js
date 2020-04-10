@@ -4,7 +4,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const Logger = require('egg-logger').Logger;
 
-const constants = require('./constants');
+const config = require('../../config');
 
 const logger = new Logger();
 
@@ -37,7 +37,7 @@ module.exports = {
     return _str;
   },
 
-  md5(str, salt = 'winwinfe') {
+  md5(str, salt = config.jwtSecret) {
     str = str + salt;
     return crypto
       .createHash('md5')
@@ -47,7 +47,7 @@ module.exports = {
 
   checkAuth(token) {
     try {
-      return jwt.verify(token, constants.jwtSecret);
+      return jwt.verify(token, config.jwtSecret);
     } catch (e) {
       logger.error(e.message);
       return false;

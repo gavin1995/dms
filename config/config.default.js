@@ -2,29 +2,14 @@
 
 const path = require('path');
 const response = require('../app/util/response');
+const cfg = require('../config');
 
 module.exports = appInfo => {
   const config = {
-    sequelize: {
-      dialect: 'mysql',
-      database: 'winwinfe_dms',
-      host: '127.0.0.1',
-      port: '3306',
-      username: 'root',
-      password: 'root1234',
-      timezone: '+08:00',
-    },
+    ...cfg,
     security: {
       csrf: {
         ignore: () => true,
-      },
-    },
-    redis: {
-      client: {
-        port: 6379,
-        host: '127.0.0.1',
-        password: null,
-        db: 0,
       },
     },
   };
@@ -51,10 +36,8 @@ module.exports = appInfo => {
     },
   };
 
-  // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1525738779809_7566';
 
-  // add your config here
   config.middleware = [
     'auth',
   ];
@@ -69,21 +52,40 @@ module.exports = appInfo => {
 
   config.logger = {
     consoleLevel: 'INFO',
-    dir: '/opt/logs/nodejs',
+    dir: cfg.log.dir,
     appLogName: `${appInfo.name}-app.log`, // 应用相关日志，供应用开发者使用的日志。我们在绝大数情况下都在使用它
     coreLogName: `${appInfo.name}-core.log`, // 框架内核、插件日志
     agentLogName: `${appInfo.name}-agent.log`, // agent 进程日志，框架和使用到 agent 进程执行任务的插件会打印一些日志到这里。
     errorLogName: `${appInfo.name}-error.log`, // 实际一般不会直接使用它，任何 logger 的 .error() 调用输出的日志都会重定向到这里，重点通过查看此日志定位异常。
   };
 
-  config.customLogger = {
-    httpRequestLogger: {
-      file: path.join(appInfo.root, `opt/logs/nodejs/${appInfo.name}-request.log`),
-    },
-    proxyLogger: {
-      file: path.join(appInfo.root, `opt/logs/nodejs/${appInfo.name}-proxy.log`),
+  config.cors = {
+    origin: '*',
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
+  };
+
+  config.bodyParser = {
+    enable: true,
+    encoding: 'utf8',
+    formLimit: '10mb',
+    jsonLimit: '1mb',
+    strict: true,
+    queryString: {
+      arrayLimit: 100,
+      depth: 5,
+      parameterLimit: 1000,
     },
   };
+
+  // 不开启本地日志文件输出
+  // config.customLogger = {
+  //   httpRequestLogger: {
+  //     file: path.join(appInfo.root, `opt/logs/nodejs/${appInfo.name}-request.log`),
+  //   },
+  //   proxyLogger: {
+  //     file: path.join(appInfo.root, `opt/logs/nodejs/${appInfo.name}-proxy.log`),
+  //   },
+  // };
 
   return config;
 };

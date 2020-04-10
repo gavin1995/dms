@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 
 const utils = require('../util/utils');
-const constants = require('../util/constants');
 const response = require('../util/response');
 
 class UserController extends Controller {
@@ -161,7 +160,7 @@ class UserController extends Controller {
       sub: user.id,
       iat: moment().unix(),
       exp: expiration,
-    }, constants.jwtSecret);
+    }, this.config.jwtSecret);
     ctx.cookies.set('token', token, {
       httpOnly: true,
       path: '/',

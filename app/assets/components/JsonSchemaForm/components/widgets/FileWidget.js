@@ -1,10 +1,9 @@
-
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import ImageZoom from "react-medium-image-zoom";
 
 import ca from '../../../../utils/ca';
-import { shouldRender, setState, sign } from "../../utils";
+import { shouldRender, setState } from "../../utils";
 import constants from "../../constants";
 
 function addNameToDataURL(dataURL, name) {
@@ -39,8 +38,9 @@ class FilesInfo extends Component {
     return (
       <ul className="file-info">
         {arrayData.map((val) => {
-          val = val ? val.replace(/https:\/\/8\.yingyinglicai\.com\/lyfe\/dms\/res/, 'http://10.100.8.30:5000/lyfe/dms/res') : val;
-          const newVal = value ? value.replace(/https:\/\/8\.yingyinglicai\.com\/lyfe\/dms\/res/, 'http://10.100.8.30:5000/lyfe/dms/res') : val;
+          // val = val ? val.replace(/https:\/\/8\.yingyinglicai\.com\/lyfe\/dms\/res/, 'http://10.100.8.30:5000/lyfe/dms/res') : val;
+          // const newVal = value ? value.replace(/https:\/\/8\.yingyinglicai\.com\/lyfe\/dms\/res/, 'http://10.100.8.30:5000/lyfe/dms/res') : val;
+          const newVal = val
           return (
             <li
               key={id}
@@ -93,18 +93,13 @@ class FileWidget extends Component {
     const { multiple, onChange } = this.props;
     const files = event.target.files;
     const filesInfo = await processFiles(event.target.files);
-    const auth = await sign();
     const fileValue = await Promise.all(
       await filesInfo.map(async (fileInfo, i) => {
         const form = new FormData();
         form.append("resource", files[i]);
         const res = await ca({
           method: "POST",
-          url: `${constants.uploadBaseUrl}/putFileByPath`,
-          headers: {
-            token: auth,
-            "Content-Type": "multipart/form-data",
-          },
+          url: '/api/putFileByPath',
           data: form,
         });
         return res;

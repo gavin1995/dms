@@ -33,7 +33,7 @@
 
 #### 可以运用到生产环境吗？
 
-当然可以，DMS存储的数据读写是完全分开的，目前支持通过Redis、CDN(推荐)两种获取数据方式。即使DMS自身服务器挂掉，也不会影响数据的读取。强烈推荐使用CDN的方式，这样稳定性和使用的CDN是一样的。
+当然可以，DMS存储的数据读写是完全分开的，目前支持通过Redis（使用redis获取数据方式请参考[注意](https://github.com/gavin1995/dms#%E6%B3%A8%E6%84%8F)）、CDN(推荐)两种获取数据方式。即使DMS自身服务器挂掉，也不会影响数据的读取。强烈推荐使用CDN的方式，这样稳定性和使用的CDN是一样的。
 
 #### DMS应用、模块、参数介绍
 
@@ -54,28 +54,33 @@
 * 符合实际场景的权限控制：开发只负责schema编写，需求方配置所有数据；
 * 支持Schema生成所有基本表单类型及高级控件，如：日期选择器、进度条、密码框、颜色选择器等；
 * 实时数据预览/审核（配合[dms-fetch](https://github.com/gavin1995/dms-fetch)，同时支持服务端代理请求，及浏览器端请求的数据预览与审核）
+* 支持anyOf
+* 实时错误提示，错误提示支持中文
+* 运营/产品权限区分
+* 统一表单图片上传管理
+* 应用、模块、参数、权限管理
+* 使用Redis缓存数据（需配合使用：[dms-api](https://github.com/gavin1995/dms-api)）
+* Json Schema/UI Schema在线编辑及生成表单预览
+* 使用表单编辑动态数据及实时数据审核（配合使用[dms-fetch](https://github.com/gavin1995/dms-fetch)）
+* 使用CDN缓存数据，目前已支持Azure CDN（配合使用[dms-upload](https://github.com/gavin1995/dms-upload)）
+
 
 #### TODO
 
 - [ ] 示例项目
+- [ ] [阿里云Serverless](https://serverless.aliyun.com/)支持及数据二次加工
+
+#### 需求池
+
 - [ ] 样式优化
 - [ ] [Formily](https://github.com/alibaba/formily)接入
-- [ ] [阿里云OSS](https://cn.aliyun.com/product/oss)及[Serverless](https://serverless.aliyun.com/)接入，提供开放接口
-- [ ] dms-fetch前端salt加密
+- [ ] webassembly前端加密
 - [ ] 在线Demo
+- [ ] 初始化命令行交互配置
 
-#### 已完成
+#### 最近三月完成功能
 
-- [x] 支持anyOf
-- [x] 实时错误提示
-- [x] 错误提示支持中文
-- [x] 运营/产品权限区分
-- [x] 统一表单图片上传管理
-- [x] 应用、模块、参数、权限管理
-- [x] 使用Redis缓存数据（需配合使用：[dms-api](https://github.com/gavin1995/dms-api)）
-- [x] Json Schema/UI Schema在线编辑及生成表单预览
-- [x] 使用表单编辑动态数据及实时数据审核（配合使用[dms-fetch](https://github.com/gavin1995/dms-fetch)）
-- [x] 使用CDN缓存数据，目前已支持Azure CDN（配合使用[dms-upload](https://github.com/gavin1995/dms-upload)）
+- [x] [阿里云OSS](https://cn.aliyun.com/product/oss)支持 - **2020.04.10**
 
 ### 快速开始
 
@@ -421,6 +426,7 @@ https://your-app.com?_c={city} # 选择参数不同时，跳转的审核地址�
 
 ### 注意
 
+* 用Redis可能遇到的问题：针对用DMS应用量巨大的公司，会使redis集群占用内存飙高，随着业务不断的增加，该集群的稳定性要求会不断提高，如果集群挂掉，所有压力将使mysql承接，请提前做好相应的预防措施
 * 不建议直接使用dms-fetch
 * 若npm安装出现问题，请使用yarn
 * 若超管需要访问非自己创建的应用，需要先给自己授权（防止误操作）

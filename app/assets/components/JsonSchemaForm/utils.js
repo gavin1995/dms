@@ -848,14 +848,3 @@ export function rangeSpec(schema) {
   }
   return spec;
 }
-
-export const sign = async (
-  username = constants.uploadUsername,
-  password = constants.uploadPassword
-) => {
-  const { data } = await ca.post(`${constants.uploadBaseUrl}/sign`, {
-    username,
-    password,
-  });
-  return data;
-};
