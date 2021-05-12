@@ -4222,10 +4222,10 @@ code-point-at@^1.0.0:
   resolved "https://registry.npm.taobao.org/code-point-at/download/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
-codemirror@^5.42.0:
-  version "5.52.2"
-  resolved "https://registry.npm.taobao.org/codemirror/download/codemirror-5.52.2.tgz#c29e1f7179f85eb0dd17c0586fa810e4838ff584"
-  integrity sha1-wp4fcXn4XrDdF8BYb6gQ5IOP9YQ=
+codemirror@^5.58.2:
+  version "5.58.2"
+  resolved "https://registry.yarnpkg.com/codemirror/-/codemirror-5.58.2.tgz#ed54a1796de1498688bea1cdd4e9eeb187565d1b"
+  integrity sha512-K/hOh24cCwRutd1Mk3uLtjWzNISOkm4fvXiMO7LucCrqbh6aJDdtqUziim3MZUI6wOY0rvY1SlL1Ork01uMy6w==
 
 collection-visit@^1.0.0:
   version "1.0.0"
@@ -5767,21 +5767,7 @@ egg-logrotator@^3.0.5:
     moment "^2.24.0"
     mz "^2.7.0"
 
-egg-multipart@^2.10.2:
-  version "2.10.2"
-  resolved "http://npmreg.qa.91jkys.com/egg-multipart/-/egg-multipart-2.10.2.tgz#d6dbe55e39792a746f1db09fe90dac651f229d21"
-  integrity sha1-1tvlXjl5KnRvHbCf6Q2sZR8inSE=
-  dependencies:
-    co-busboy "^1.4.0"
-    egg-path-matching "^1.0.1"
-    humanize-bytes "^1.0.1"
-    moment "^2.22.2"
-    mz "^2.7.0"
-    mz-modules "^2.1.0"
-    stream-wormhole "^1.1.0"
-    uuid "^3.3.2"
-
-egg-multipart@^2.4.0:
+egg-multipart@^2.10.2, egg-multipart@^2.4.0:
   version "2.10.2"
   resolved "https://registry.npm.taobao.org/egg-multipart/download/egg-multipart-2.10.2.tgz#d6dbe55e39792a746f1db09fe90dac651f229d21"
   integrity sha1-1tvlXjl5KnRvHbCf6Q2sZR8inSE=
