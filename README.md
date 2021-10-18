@@ -1,4 +1,4 @@
-DMS正在进行发布依赖最大的一次更新，敬请期待...
+DMS正在进行发布以来最大的一次更新，敬请期待...  - Gavin 2021.10.18
 
 <img src="https://github.com/gavin1995/dms/blob/master/app/assets/assets/logo.png" width="480px" />
 
