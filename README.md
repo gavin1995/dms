@@ -1,3 +1,5 @@
+DMS正在进行发布依赖最大的一次更新，敬请期待...
+
 <img src="https://github.com/gavin1995/dms/blob/master/app/assets/assets/logo.png" width="480px" />
 
 ![](https://github.com/gavin1995/dms/blob/master/app/public/assets/images/use.gif)
