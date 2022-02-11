@@ -20,7 +20,7 @@
   "dependencies": {
     "@antv/data-set": "^0.10.1",
     "@babel/polyfill": "^7.0.0",
-    "ajv": "^6.6.2",
+    "ajv": "^6.12.3",
     "ajv-i18n": "^3.4.0",
     "ali-oss": "^6.6.0",
     "antd": "^3.10.9",
