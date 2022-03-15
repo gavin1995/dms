@@ -5767,21 +5767,7 @@ egg-logrotator@^3.0.5:
     moment "^2.24.0"
     mz "^2.7.0"
 
-egg-multipart@^2.10.2:
-  version "2.10.2"
-  resolved "http://npmreg.qa.91jkys.com/egg-multipart/-/egg-multipart-2.10.2.tgz#d6dbe55e39792a746f1db09fe90dac651f229d21"
-  integrity sha1-1tvlXjl5KnRvHbCf6Q2sZR8inSE=
-  dependencies:
-    co-busboy "^1.4.0"
-    egg-path-matching "^1.0.1"
-    humanize-bytes "^1.0.1"
-    moment "^2.22.2"
-    mz "^2.7.0"
-    mz-modules "^2.1.0"
-    stream-wormhole "^1.1.0"
-    uuid "^3.3.2"
-
-egg-multipart@^2.4.0:
+egg-multipart@^2.10.2, egg-multipart@^2.4.0:
   version "2.10.2"
   resolved "https://registry.npm.taobao.org/egg-multipart/download/egg-multipart-2.10.2.tgz#d6dbe55e39792a746f1db09fe90dac651f229d21"
   integrity sha1-1tvlXjl5KnRvHbCf6Q2sZR8inSE=
@@ -10020,9 +10006,9 @@ lodash-decorators@^6.0.0:
     tslib "^1.9.2"
 
 lodash-es@^4.17.5, lodash-es@^4.2.1:
-  version "4.17.15"
-  resolved "https://registry.npm.taobao.org/lodash-es/download/lodash-es-4.17.15.tgz#21bd96839354412f23d7a10340e5eac6ee455d78"
-  integrity sha1-Ib2Wg5NUQS8j16EDQOXqxu5FXXg=
+  version "4.17.21"
+  resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
+  integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
 
 lodash._reinterpolate@^3.0.0:
   version "3.0.0"
