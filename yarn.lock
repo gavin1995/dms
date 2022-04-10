@@ -5767,21 +5767,7 @@ egg-logrotator@^3.0.5:
     moment "^2.24.0"
     mz "^2.7.0"
 
-egg-multipart@^2.10.2:
-  version "2.10.2"
-  resolved "http://npmreg.qa.91jkys.com/egg-multipart/-/egg-multipart-2.10.2.tgz#d6dbe55e39792a746f1db09fe90dac651f229d21"
-  integrity sha1-1tvlXjl5KnRvHbCf6Q2sZR8inSE=
-  dependencies:
-    co-busboy "^1.4.0"
-    egg-path-matching "^1.0.1"
-    humanize-bytes "^1.0.1"
-    moment "^2.22.2"
-    mz "^2.7.0"
-    mz-modules "^2.1.0"
-    stream-wormhole "^1.1.0"
-    uuid "^3.3.2"
-
-egg-multipart@^2.4.0:
+egg-multipart@^2.10.2, egg-multipart@^2.4.0:
   version "2.10.2"
   resolved "https://registry.npm.taobao.org/egg-multipart/download/egg-multipart-2.10.2.tgz#d6dbe55e39792a746f1db09fe90dac651f229d21"
   integrity sha1-1tvlXjl5KnRvHbCf6Q2sZR8inSE=
@@ -10511,9 +10497,9 @@ minimatch@3.0.4, minimatch@^3.0.0, minimatch@^3.0.2, minimatch@^3.0.3, minimatch
     brace-expansion "^1.1.7"
 
 minimist@^1.1.0, minimist@^1.1.1, minimist@^1.1.3, minimist@^1.2.0, minimist@^1.2.5, minimist@~1.2.0:
-  version "1.2.5"
-  resolved "https://registry.npm.taobao.org/minimist/download/minimist-1.2.5.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fminimist%2Fdownload%2Fminimist-1.2.5.tgz#67d66014b66a6a8aaa0c083c5fd58df4e4e97602"
-  integrity sha1-Z9ZgFLZqaoqqDAg8X9WN9OTpdgI=
+  version "1.2.6"
+  resolved "https://registry.yarnpkg.com/minimist/-/minimist-1.2.6.tgz#8637a5b759ea0d6e98702cfb3a9283323c93af44"
+  integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
 mississippi@^2.0.0:
   version "2.0.0"
