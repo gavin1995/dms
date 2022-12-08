@@ -5767,21 +5767,7 @@ egg-logrotator@^3.0.5:
     moment "^2.24.0"
     mz "^2.7.0"
 
-egg-multipart@^2.10.2:
-  version "2.10.2"
-  resolved "http://npmreg.qa.91jkys.com/egg-multipart/-/egg-multipart-2.10.2.tgz#d6dbe55e39792a746f1db09fe90dac651f229d21"
-  integrity sha1-1tvlXjl5KnRvHbCf6Q2sZR8inSE=
-  dependencies:
-    co-busboy "^1.4.0"
-    egg-path-matching "^1.0.1"
-    humanize-bytes "^1.0.1"
-    moment "^2.22.2"
-    mz "^2.7.0"
-    mz-modules "^2.1.0"
-    stream-wormhole "^1.1.0"
-    uuid "^3.3.2"
-
-egg-multipart@^2.4.0:
+egg-multipart@^2.10.2, egg-multipart@^2.4.0:
   version "2.10.2"
   resolved "https://registry.npm.taobao.org/egg-multipart/download/egg-multipart-2.10.2.tgz#d6dbe55e39792a746f1db09fe90dac651f229d21"
   integrity sha1-1tvlXjl5KnRvHbCf6Q2sZR8inSE=
@@ -12321,10 +12307,10 @@ qs@6.7.0:
   resolved "https://registry.npm.taobao.org/qs/download/qs-6.7.0.tgz#41dc1a015e3d581f1621776be31afb2876a9b1bc"
   integrity sha1-QdwaAV49WB8WIXdr4xr7KHapsbw=
 
-qs@^6.4.0, qs@^6.5.1, qs@^6.5.2, qs@^6.6.0:
-  version "6.9.3"
-  resolved "https://registry.npm.taobao.org/qs/download/qs-6.9.3.tgz#bfadcd296c2d549f1dffa560619132c977f5008e"
-  integrity sha1-v63NKWwtVJ8d/6VgYZEyyXf1AI4=
+qs@^6.4.0, qs@^6.5.1, qs@^6.5.2, qs@^6.9.7:
+  version "6.9.7"
+  resolved "https://registry.yarnpkg.com/qs/-/qs-6.9.7.tgz#4610846871485e1e048f44ae3b94033f0e675afe"
+  integrity sha512-IhMFgUmuNpyRfxA90umL7ByLlgRXu6tIfKPpF5TmcfRLlLCckfP/g3IQmju6jjpu+Hh8rA+2p6A27ZSPOOHdKw==
 
 qs@~6.4.0:
   version "6.4.0"

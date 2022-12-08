@@ -57,7 +57,7 @@
     "omit.js": "^1.0.0",
     "path-to-regexp": "^2.4.0",
     "prop-types": "^15.6.2",
-    "qs": "^6.6.0",
+    "qs": "^6.9.7",
     "rc-drawer-menu": "^1.1.0",
     "react": "^16.13.1",
     "react-ace": "^6.2.0",
