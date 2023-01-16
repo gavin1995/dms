@@ -30,7 +30,7 @@
     "bizcharts": "^3.4.0",
     "bizcharts-plugin-slider": "^2.1.1-beta.1",
     "classnames": "^2.2.6",
-    "codemirror": "^5.42.0",
+    "codemirror": "^5.58.2",
     "core-js": "^2.6.1",
     "dms-fetch": "^0.1.0",
     "dva": "^2.4.1",
